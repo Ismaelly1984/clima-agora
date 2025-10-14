@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clima Agora – Previsão do Tempo em Tempo Real</title>
+
+    <!-- Descrição e Open Graph -->
+    <meta
+      name="description"
+      content="Veja a previsão do tempo em tempo real para qualquer cidade. Clima Agora mostra temperatura, umidade e condições atuais de forma simples e elegante."
+    />
+    <meta property="og:title" content="Clima Agora" />
+    <meta property="og:description" content="Veja a previsão do tempo em tempo real." />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta name="theme-color" content="#0f172a" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Clima Agora",
+        "applicationCategory": "WeatherApplication",
+        "operatingSystem": "Web",
+        "description": "Veja a previsão do tempo em tempo real para qualquer cidade. Clima Agora mostra temperatura, umidade e condições atuais de forma simples e elegante.",
+        "url": "https://clima-agora.example",
+        "inLanguage": "pt-BR"
+      }
+    </script>
+
+    <!-- Fonte Google (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons (para ícones de UI) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Manifest PWA + Ícones -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css?v=1.0.4" />
+  </head>
+  <body class="theme-auto">
+    <div class="overlay" aria-hidden="true"></div>
+    <noscript>
+      Habilite o JavaScript para usar o Clima Agora.
+    </noscript>
+
+    <header class="site-header">
+      <div class="brand">
+        <i data-lucide="sun" class="brand-icon" aria-hidden="true"></i>
+        <h1 class="brand-title">Clima Agora</h1>
+      </div>
+      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
+        <i data-lucide="moon"></i>
+      </button>
+    </header>
+
+    <main class="container">
+      <section class="search-card glass" role="search">
+        <div class="search-row">
+          <label class="sr-only" for="cityInput">Pesquisar cidade</label>
+          <i data-lucide="map-pin" class="field-icon" aria-hidden="true"></i>
+          <input
+            id="cityInput"
+            type="text"
+            placeholder="Digite o nome da cidade (ex: São Paulo)"
+            autocomplete="off"
+            inputmode="search"
+          />
+          <button id="searchBtn" class="primary-btn" aria-label="Buscar">
+            <i data-lucide="search"></i>
+            <span>Buscar</span>
+          </button>
+          <button id="geoBtn" class="secondary-btn" aria-label="Usar minha localização">
+            <i data-lucide="crosshair"></i>
+            <span>Minha localização</span>
+          </button>
+          <button id="unitToggle" class="toggle-btn" aria-label="Alternar unidade">
+            °C / °F
+          </button>
+        </div>
+        <p id="statusMsg" class="status muted">Pesquise uma cidade</p>
+      </section>
+
+      <section id="weatherCard" class="weather-card glass hidden" aria-live="polite">
+        <div class="weather-header">
+          <div class="place">
+            <h2 id="cityName" class="city">—</h2>
+            <p id="country" class="country muted">—</p>
+          </div>
+          <img id="weatherIcon" class="weather-icon" src="" alt="" />
+        </div>
+
+        <div class="weather-main">
+          <p id="description" class="description">—</p>
+          <p class="temperature">
+            <i data-lucide="thermometer"></i>
+            <span id="temp">—</span>
+          </p>
+        </div>
+
+        <div class="weather-extra">
+          <div class="metric">
+            <i data-lucide="droplets"></i>
+            <div>
+              <span class="label">Umidade</span>
+              <span id="humidity" class="value">—</span>
+            </div>
+          </div>
+          <div class="metric">
+            <i data-lucide="wind"></i>
+            <div>
+              <span class="label">Vento</span>
+              <span id="wind" class="value">—</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Script principal -->
+    <script src="script.js?v=1.0.4"></script>
+    <script>
+      // Inicializa ícones Lucide após o DOM completar
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+    <script>
+      // Registro do Service Worker (PWA)
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./service-worker.js')
+            .then((reg) => {
+              // Se já existir uma atualização pronta
+              if (reg.waiting && window.showToast) {
+                showToast('Nova versão disponível. Recarregue a página.', 'info', 4000);
+              }
+              // Detecta novas atualizações
+              reg.addEventListener('updatefound', () => {
+                const nw = reg.installing;
+                if (!nw) return;
+                nw.addEventListener('statechange', () => {
+                  if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (window.showToast) showToast('Nova versão instalada. Recarregue.', 'info', 4000);
+                  }
+                });
+              });
+            })
+            .catch(err => console.warn('SW falhou ao registrar:', err));
+        });
+      }
+    </script>
+  </body>
+  </html>
