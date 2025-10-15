@@ -69,9 +69,7 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
     </noscript>
 
-    <!-- Lucide Icons (para ícones de UI) -->
-    <!-- Opcional: migrar para bundling via npm para reduzir custo de rede e melhorar LCP -->
-    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <!-- Ícones inline via SVG sprite -->
 
     <!-- Manifest PWA + Ícones -->
     <link rel="manifest" href="manifest.webmanifest" />
@@ -82,6 +80,59 @@
     <link rel="stylesheet" href="style.css?v=1.0.4" />
   </head>
   <body class="theme-auto">
+    <!-- Sprite de ícones (inline, reutilizável) -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-map-pin" viewBox="0 0 24 24">
+        <path d="M12 21s-6-5.33-6-10a6 6 0 1 1 12 0c0 4.67-6 10-6 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-crosshair" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+        <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="i-thermometer" viewBox="0 0 24 24">
+        <path d="M14 14.76V5a2 2 0 1 0-4 0v9.76a4 4 0 1 0 4 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-droplets" viewBox="0 0 24 24">
+        <path d="M12 2C9 6 8 7.5 8 10a4 4 0 0 0 8 0c0-2.5-1-4-4-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-wind" viewBox="0 0 24 24">
+        <path d="M3 12h12a3 3 0 1 0-3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 19h10a2 2 0 1 0-2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-umbrella" viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 0 0-10 10h20A10 10 0 0 0 12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 12v6a2 2 0 1 0 4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
+      <symbol id="i-cloud-rain" viewBox="0 0 24 24">
+        <path d="M20 16.58A5 5 0 0 0 18 7a7 7 0 0 0-13.33 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16 16H7a4 4 0 1 1 2-7.45" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="8" y1="19" x2="8" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="19" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="19" x2="16" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </symbol>
+    </svg>
     <div class="overlay" aria-hidden="true"></div>
     <noscript>
       Habilite o JavaScript para usar o Clima Agora.
@@ -89,11 +140,11 @@
 
     <header class="site-header">
       <div class="brand">
-        <i data-lucide="sun" class="brand-icon" aria-hidden="true"></i>
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sun"/></svg>
         <h1 class="brand-title">Clima Agora</h1>
       </div>
       <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
-        <i data-lucide="moon"></i>
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"/></svg>
       </button>
     </header>
 
@@ -101,7 +152,7 @@
       <section class="search-card glass" role="search">
         <div class="search-row">
           <label class="sr-only" for="cityInput">Pesquisar cidade</label>
-          <i data-lucide="map-pin" class="field-icon" aria-hidden="true"></i>
+          <svg class="field-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-map-pin"/></svg>
           <input
             id="cityInput"
             type="text"
@@ -110,11 +161,11 @@
             inputmode="search"
           />
           <button id="searchBtn" class="primary-btn" aria-label="Buscar">
-            <i data-lucide="search"></i>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"/></svg>
             <span>Buscar</span>
           </button>
           <button id="geoBtn" class="secondary-btn" aria-label="Usar minha localização">
-            <i data-lucide="crosshair"></i>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-crosshair"/></svg>
             <span>Minha localização</span>
           </button>
           <button id="unitToggle" class="toggle-btn" aria-label="Alternar unidade">
@@ -137,21 +188,21 @@
         <div class="weather-main">
           <p id="description" class="description">—</p>
           <p class="temperature">
-            <i data-lucide="thermometer"></i>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-thermometer"/></svg>
             <span id="temp">—</span>
           </p>
         </div>
 
         <div class="weather-extra">
           <div class="metric">
-            <i data-lucide="droplets"></i>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-droplets"/></svg>
             <div>
               <span class="label">Umidade</span>
               <span id="humidity" class="value">—</span>
             </div>
           </div>
           <div class="metric">
-            <i data-lucide="wind"></i>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wind"/></svg>
             <div>
               <span class="label">Vento</span>
               <span id="wind" class="value">—</span>
@@ -166,9 +217,11 @@
     <!-- Script principal -->
     <script src="script.js?v=1.0.4"></script>
     <script>
-      // Inicializa ícones Lucide após o DOM completar
+      // Inicializa ícones Lucide em idle para reduzir TBT
       document.addEventListener('DOMContentLoaded', () => {
-        if (window.lucide) lucide.createIcons();
+        const initIcons = () => { if (window.lucide) lucide.createIcons(); };
+        if (window.requestIdleCallback) requestIdleCallback(initIcons, { timeout: 1500 });
+        else setTimeout(initIcons, 0);
       });
     </script>
     <script>

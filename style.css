@@ -11,14 +11,14 @@
   --color-primary: #3b82f6;
   --color-primary-hover: #2563eb;
   --text: #e5e7eb; /* cinza claro */
-  --text-muted: #cbd5e1; /* mais claro */
+  --text-muted: #e2e8f0; /* melhor contraste no tema escuro */
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.15);
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
   --bg-start: #0f172a; /* slate-900 */
   --bg-end: #1e293b;   /* slate-800 */
-  --image-overlay: rgba(2, 6, 23, 0.45); /* overlay sobre fotos (escuro) */
-  --overlay-opacity: 0.45; /* intensidade da camada .overlay */
+  --image-overlay: rgba(2, 6, 23, 0.50); /* overlay sobre fotos (escuro) */
+  --overlay-opacity: 0.50; /* intensidade da camada .overlay */
   --skel-base: rgba(255,255,255,0.08);
   --skel-highlight: rgba(255,255,255,0.18);
 }
@@ -32,8 +32,8 @@
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(15, 23, 42, 0.08);
   --shadow: 0 12px 24px rgba(2, 6, 23, 0.1);
-  --image-overlay: rgba(15, 23, 42, 0.18); /* overlay mais leve (claro) */
-  --overlay-opacity: 0.18;
+  --image-overlay: rgba(15, 23, 42, 0.24); /* overlay mais forte (claro) */
+  --overlay-opacity: 0.24;
   --skel-base: rgba(15,23,42,0.10);
   --skel-highlight: rgba(15,23,42,0.18);
 }
@@ -146,7 +146,7 @@ body.bg-thunder::after {
   backdrop-filter: blur(8px); box-shadow: var(--shadow);
 }
 .icon-btn:hover { transform: translateY(-1px); }
-.icon-btn i { width: 20px; height: 20px; }
+.icon-btn i, .icon-btn svg { width: 20px; height: 20px; }
 
 /* Container */
 .container { 
@@ -224,11 +224,11 @@ input#cityInput:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3p
 .weather-main { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
 .description { margin: 0; font-size: 18px; text-transform: capitalize; }
 .temperature { margin: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 32px; font-weight: 600; }
-.temperature i { width: 24px; height: 24px; }
+.temperature i, .temperature svg { width: 24px; height: 24px; }
 
 .weather-extra { margin-top: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .metric { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.06); }
-.metric i { width: 22px; height: 22px; }
+.metric i, .metric svg { width: 22px; height: 22px; }
 .metric .label { display: block; font-size: 12px; color: var(--text-muted); }
 .metric .value { display: block; font-size: 16px; font-weight: 500; }
 

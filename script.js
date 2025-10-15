@@ -82,20 +82,24 @@ function updateThemeToggleIcon(mode) {
   // Mostra ícone correspondente ao modo atual
   let icon = "moon"; // se claro, exibir lua
   if (mode === "auto") {
-    icon = "clock-3"; // modo automático
+    icon = "moon"; // mantém lua como padrão para auto
   } else if (mode === "dark") {
     icon = "sun"; // no escuro, oferecer sol (trocar p/ claro)
   } else if (mode === "light") {
     icon = "moon"; // no claro, oferecer lua (trocar p/ escuro)
   }
-  el.themeToggle.innerHTML = `<i data-lucide="${icon}"></i>`;
-  if (window.lucide) lucide.createIcons();
+  el.themeToggle.innerHTML = svgIcon(icon);
 }
 
 function cycleTheme() {
   const current = localStorage.getItem("themePref") || "auto";
   const next = current === "auto" ? "light" : current === "light" ? "dark" : "auto";
   setTheme(next);
+}
+
+// Retorna SVG inline usando o sprite (icons definidos em index.html)
+function svgIcon(name, size = 20, extraClass = "") {
+  return `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${extraClass}"><use href="#i-${name}"/></svg>`;
 }
 
 // Unidades: metric (°C, m/s) → exibimos km/h; imperial (°F, mph)
@@ -263,7 +267,7 @@ function ensureRainSummaryMetrics() {
     const metr = document.createElement('div');
     metr.className = 'metric';
     metr.innerHTML = `
-      <i data-lucide="umbrella"></i>
+      ${svgIcon('umbrella', 22)}
       <div>
         <span class="label">Chance de chuva</span>
         <span id="popSummaryVal" class="value">—</span>
@@ -278,7 +282,7 @@ function ensureRainSummaryMetrics() {
     const metr = document.createElement('div');
     metr.className = 'metric';
     metr.innerHTML = `
-      <i data-lucide="cloud-rain"></i>
+      ${svgIcon('cloud-rain', 22)}
       <div>
         <span class="label">Chuva (mm hoje)</span>
         <span id="rainSummaryVal" class="value">—</span>
@@ -346,8 +350,8 @@ function getBgKey(main) {
 async function setDynamicBackgroundImage(main) {
   const key = getBgKey(main);
   const candidates = [
-    `assets/bg/${key}.png`,
     `assets/bg/${key}.webp`,
+    `assets/bg/${key}.png`,
     `assets/bg/${key}.jpg`,
     `assets/bg/${key}.jpeg`,
   ];
