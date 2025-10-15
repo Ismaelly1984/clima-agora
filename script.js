@@ -7,12 +7,10 @@
   - Tratamento de erros e estado offline
 */
 
-// 1) Configure sua chave da API aqui
-// Substitua "SUA_API_KEY" pela chave obtida em https://openweathermap.org/api
-const API_KEY = "b38ea75bd52a3f09ac68f26dc3846cac"; // chave definida pelo usuário
-
-const API_BASE = "https://api.openweathermap.org/data/2.5/weather";
-const FORECAST_BASE = "https://api.openweathermap.org/data/2.5/forecast";
+// Proxy Serverless para ocultar a API key (backend expõe /api/*)
+const USE_PROXY = true;
+const API_BASE = "/api/weather";
+const FORECAST_BASE = "/api/forecast";
 const POP_HIGHLIGHT = 60; // limiar (%) para destaque
 const RAIN_MM_HIGHLIGHT = 5; // limiar (mm) para destaque de chuva
 
@@ -477,10 +475,7 @@ function updateUI(data) {
 }
 
 async function fetchWeatherByCity(city) {
-  if (!API_KEY || API_KEY === "SUA_API_KEY") {
-    showToast("Defina sua API key no script.js.", "error", 3500);
-    return;
-  }
+  // Nenhuma API key no cliente: uso obrigatório do proxy
   const q = city?.trim();
   if (!q) {
     showToast("Digite o nome de uma cidade.", "info");
@@ -495,7 +490,7 @@ async function fetchWeatherByCity(city) {
     setLoading(true);
     startSkeleton();
     startTodaySkeleton();
-    const url = `${API_BASE}?q=${encodeURIComponent(q)}&appid=${API_KEY}&units=${getUnits()}&lang=pt_br`;
+    const url = `${API_BASE}?q=${encodeURIComponent(q)}&units=${getUnits()}&lang=pt_br`;
     const res = await fetch(url);
     if (!res.ok) {
       let msg = "Erro ao buscar dados.";
@@ -522,10 +517,7 @@ async function fetchWeatherByCity(city) {
 }
 
 async function fetchWeatherByCoords(lat, lon) {
-  if (!API_KEY || API_KEY === "SUA_API_KEY") {
-    showToast("Defina sua API key no script.js.", "error", 3500);
-    return;
-  }
+  // Nenhuma API key no cliente: uso obrigatório do proxy
   if (!navigator.onLine) {
     showToast("Sem conexão. Verifique sua internet.", "error");
     return;
@@ -534,7 +526,7 @@ async function fetchWeatherByCoords(lat, lon) {
     setLoading(true);
     startSkeleton();
     startTodaySkeleton();
-    const url = `${API_BASE}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${getUnits()}&lang=pt_br`;
+    const url = `${API_BASE}?lat=${lat}&lon=${lon}&units=${getUnits()}&lang=pt_br`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("Erro ao buscar localização atual.");
     const data = await res.json();
@@ -651,11 +643,11 @@ function renderForecast(data) {
   }
 }
 async function fetchForecastByCity(city) {
-  if (!API_KEY || API_KEY === 'SUA_API_KEY') return;
+  // Proxy obrigatório no cliente
   if (!city) return;
   try {
     startForecastSkeleton();
-    const url = `${FORECAST_BASE}?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=${getUnits()}&lang=pt_br`;
+    const url = `${FORECAST_BASE}?q=${encodeURIComponent(city)}&units=${getUnits()}&lang=pt_br`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('Falha ao buscar previsao');
     const data = await res.json();
@@ -668,10 +660,10 @@ async function fetchForecastByCity(city) {
   }
 }
 async function fetchForecastByCoords(lat, lon) {
-  if (!API_KEY || API_KEY === 'SUA_API_KEY') return;
+  // Proxy obrigatório no cliente
   try {
     startForecastSkeleton();
-    const url = `${FORECAST_BASE}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${getUnits()}&lang=pt_br`;
+    const url = `${FORECAST_BASE}?lat=${lat}&lon=${lon}&units=${getUnits()}&lang=pt_br`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('Falha ao buscar previsao');
     const data = await res.json();
