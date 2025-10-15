@@ -23,6 +23,39 @@
     <meta name="twitter:image" content="assets/og-image.png" />
     <link rel="canonical" href="https://ismaelly1984.github.io/ClimaAgora/" />
     <meta name="theme-color" content="#0f172a" />
+    <!-- CSS crítico inline para primeiro paint -->
+    <style>
+      html,body{height:100%}
+      body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Noto Sans',Arial,'Apple Color Emoji','Segoe UI Emoji','Poppins';color:#e5e7eb;background:linear-gradient(135deg,#0f172a,#1e293b);background-attachment:fixed}
+      .site-header{max-width:1100px;margin:0 auto;padding:20px 16px;display:flex;align-items:center;justify-content:space-between}
+      .brand{display:flex;align-items:center;gap:10px}
+      .brand-icon{color:#3b82f6}
+      .brand-title{margin:0;font-weight:600}
+      .container{max-width:1100px;margin:0 auto;padding:12px 16px 24px;position:relative}
+      .glass{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:16px}
+      .search-card{padding:12px}
+      .search-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center}
+      input#cityInput{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#e5e7eb}
+      .primary-btn,.secondary-btn,.toggle-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px}
+      .primary-btn{background:#3b82f6;color:#fff}
+      .secondary-btn{background:transparent;color:inherit;border:1px solid rgba(255,255,255,0.15)}
+      .overlay{position:fixed;inset:0;pointer-events:none}
+      .status{margin:12px 2px 2px;font-size:14px;color:#e2e8f0}
+      .weather-card{padding:16px}
+      .weather-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+      .place .city{margin:0;font-weight:600}
+      .place .country{margin:0;font-size:14px;color:#e2e8f0}
+      .weather-icon{width:96px;height:96px}
+      .weather-main{margin-top:8px}
+      .description{margin:0;font-size:18px;text-transform:capitalize}
+      .temperature{margin:0;display:inline-flex;align-items:center;gap:8px;font-weight:600}
+      .weather-extra{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+      .metric{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06)}
+      .metric .label{display:block;font-size:12px;color:#e2e8f0}
+      .metric .value{display:block;font-size:16px;font-weight:500}
+      .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;padding:10px 14px;border-radius:12px;opacity:0}
+      @media(max-width:900px){.search-row{grid-template-columns:1fr}}
+    </style>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -83,8 +116,8 @@
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 
     <!-- Estilos -->
-    <link rel="preload" as="style" href="style.min.css?v=1.0.5" />
-    <link rel="stylesheet" href="style.min.css?v=1.0.5" />
+    <link rel="preload" as="style" href="style.min.css?v=1.0.7" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="style.min.css?v=1.0.7" /></noscript>
   </head>
   <body class="theme-auto">
     <a href="#main" class="skip-link">Pular para o conteúdo</a>

@@ -6,14 +6,14 @@
   - Cache-first para fontes e CDNs comuns
 */
 
-const APP_VERSION = 'v1.0.5';
+const APP_VERSION = 'v1.0.6';
 const APP_SHELL = `clima-agora-shell-${APP_VERSION}`;
 const RUNTIME_CACHE = `clima-agora-runtime-${APP_VERSION}`;
 
 const APP_SHELL_FILES = [
   './',
   './index.html',
-  './style.min.css?v=1.0.5',
+  './style.min.css?v=1.0.7',
   './script.min.js?v=1.0.5',
   './manifest.webmanifest',
   './assets/icons/favicon.svg',
@@ -51,13 +51,17 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((key) => {
+    (async () => {
+      // Habilita navigation preload quando disponível
+      try { if (self.registration.navigationPreload) await self.registration.navigationPreload.enable(); } catch (e) {}
+      const keys = await caches.keys();
+      await Promise.all(keys.map((key) => {
         if (![APP_SHELL, RUNTIME_CACHE].includes(key)) {
           return caches.delete(key);
         }
-      }))
-    ).then(() => self.clients.claim())
+      }));
+      await self.clients.claim();
+    })()
   );
 });
 
@@ -78,11 +82,19 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(req.url);
 
-  // Navegação: tenta cache primeiro (para modo offline), cai para fetch
+  // Navegação: usa navigation preload, depois rede, com fallback offline
   if (req.mode === 'navigate') {
-    event.respondWith(
-      caches.match('./index.html').then((cached) => cached || fetch(req))
-    );
+    event.respondWith((async () => {
+      try {
+        const preload = await event.preloadResponse;
+        if (preload) return preload;
+      } catch {}
+      try {
+        return await fetch(req);
+      } catch (e) {
+        return caches.match('./index.html');
+      }
+    })());
     return;
   }
 
