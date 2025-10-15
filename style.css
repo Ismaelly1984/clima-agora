@@ -280,6 +280,23 @@ input#cityInput:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3p
 .toast.error { background: rgba(220, 38, 38, 0.9); }
 .toast.info { background: rgba(2, 132, 199, 0.9); }
 
+/* Banner de update do PWA */
+.update-banner {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 16px;
+  padding: 10px 14px;
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  z-index: 9999;
+}
+.update-banner.hidden { display: none; }
+
 /* Acessibilidade */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 

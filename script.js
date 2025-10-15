@@ -129,6 +129,31 @@ function showToast(msg, type = "info", timeout = 2400) {
   }, timeout);
 }
 
+// Banner de atualização do PWA (mostra e permite aplicar nova versão)
+window.showUpdateBanner = window.showUpdateBanner || function showUpdateBanner() {
+  const banner = document.getElementById('updateBanner');
+  if (!banner) return;
+  banner.classList.remove('hidden');
+  const btn = document.getElementById('reloadBtn');
+  if (!btn || !('serviceWorker' in navigator)) return;
+  btn.onclick = async () => {
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (reg?.waiting) {
+        reg.waiting.postMessage('SKIP_WAITING');
+      } else if (reg?.active) {
+        reg.active.postMessage('SKIP_WAITING');
+      }
+    } catch {}
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
+  };
+};
+
 function setLoading(loading) {
   if (loading) {
     el.searchBtn.disabled = true;
@@ -407,7 +432,8 @@ function updateUI(data) {
   if (w.icon) {
     const url = `https://openweathermap.org/img/wn/${w.icon}@4x.png`;
     el.weatherIcon.src = url;
-    el.weatherIcon.alt = w.description || "Ícone do clima";
+    const descText = capitalize(w.description || "");
+    el.weatherIcon.alt = descText ? `Condição do tempo: ${descText}` : "Condição do tempo";
   } else {
     el.weatherIcon.src = "";
     el.weatherIcon.alt = "";
@@ -572,7 +598,7 @@ function renderForecast(data) {
       const iconUrl = `https://openweathermap.org/img/wn/${d.icon}@2x.png`;
       const label = weekdayPT(d.date);
       card.innerHTML = `
-        <img src="${iconUrl}" alt="" class="f-icon"/>
+        <img src="${iconUrl}" alt="" class="f-icon" loading="lazy"/>
         <div class="f-day">${label}</div>
         <div class="f-temps"><span class="min">${Math.round(d.min)}${tUnit}</span> · <span class="max">${Math.round(d.max)}${tUnit}</span></div>
       `;
@@ -709,11 +735,11 @@ function renderTodayForecast(data) {
     card.className = cClass;
     card.innerHTML = `
       <div class="forecast-time">${hh}:00</div>
-      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="f-icon" />
+      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="f-icon" loading="lazy" />
       <div class="forecast-temp">${t}</div>
       <div class="forecast-desc">${capitalize(desc)}</div>
       <div class="forecast-pop">🌧️ ${popPct}% de chance</div>
-      ${rainMm > 0 ? `<div class="forecast-rain">💧 ${rainMm.toFixed(1)} mm</div>` : ''}
+      ${rainMm > 0 ? `<div class=\"forecast-rain\">💧 ${rainMm.toFixed(1)} mm</div>` : ''}
     `;
     el.todayRow.appendChild(card);
   });

@@ -14,6 +14,13 @@
     <meta property="og:title" content="Clima Agora" />
     <meta property="og:description" content="Veja a previsão do tempo em tempo real." />
     <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ismaelly1984.github.io/ClimaAgora/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Clima Agora – Previsão em Tempo Real" />
+    <meta name="twitter:description" content="Acompanhe a previsão do tempo ao vivo para qualquer cidade." />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <link rel="canonical" href="https://ismaelly1984.github.io/ClimaAgora/" />
     <meta name="theme-color" content="#0f172a" />
     <script type="application/ld+json">
       {
@@ -23,21 +30,42 @@
         "applicationCategory": "WeatherApplication",
         "operatingSystem": "Web",
         "description": "Veja a previsão do tempo em tempo real para qualquer cidade. Clima Agora mostra temperatura, umidade e condições atuais de forma simples e elegante.",
-        "url": "https://clima-agora.example",
+        "url": "https://ismaelly1984.github.io/ClimaAgora/",
+        "creator": {
+          "@type": "Person",
+          "name": "Ismael Nunes",
+          "url": "https://ismaelly1984.github.io/"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://ismaelly1984.github.io/ClimaAgora/?q={city}",
+          "query-input": "required name=city"
+        },
         "inLanguage": "pt-BR"
       }
     </script>
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="display-mode" content="standalone" />
 
     <!-- Fonte Google (Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    </noscript>
 
     <!-- Lucide Icons (para ícones de UI) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Opcional: migrar para bundling via npm para reduzir custo de rede e melhorar LCP -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
 
     <!-- Manifest PWA + Ícones -->
     <link rel="manifest" href="manifest.webmanifest" />
@@ -96,7 +124,7 @@
             <h2 id="cityName" class="city">—</h2>
             <p id="country" class="country muted">—</p>
           </div>
-          <img id="weatherIcon" class="weather-icon" src="" alt="" />
+          <img id="weatherIcon" class="weather-icon" src="" alt="" loading="eager" />
         </div>
 
         <div class="weather-main">
@@ -143,8 +171,9 @@
           navigator.serviceWorker.register('./service-worker.js')
             .then((reg) => {
               // Se já existir uma atualização pronta
-              if (reg.waiting && window.showToast) {
-                showToast('Nova versão disponível. Recarregue a página.', 'info', 4000);
+              if (reg.waiting) {
+                if (window.showToast) showToast('Nova versão disponível. Recarregue a página.', 'info', 4000);
+                if (window.showUpdateBanner) showUpdateBanner();
               }
               // Detecta novas atualizações
               reg.addEventListener('updatefound', () => {
@@ -153,6 +182,7 @@
                 nw.addEventListener('statechange', () => {
                   if (nw.state === 'installed' && navigator.serviceWorker.controller) {
                     if (window.showToast) showToast('Nova versão instalada. Recarregue.', 'info', 4000);
+                    if (window.showUpdateBanner) showUpdateBanner();
                   }
                 });
               });
@@ -161,5 +191,9 @@
         });
       }
     </script>
+    <div id="updateBanner" class="update-banner hidden" role="status" aria-live="polite">
+      Uma nova versão está disponível.
+      <button id="reloadBtn" class="primary-btn" aria-label="Recarregar para atualizar">Atualizar</button>
+    </div>
   </body>
   </html>

@@ -61,6 +61,13 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Mensageria para permitir skipWaiting a partir da página
+self.addEventListener('message', (event) => {
+  if (event && event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 // Util: identifica domínios
 const isOpenWeather = (url) => /api\.openweathermap\.org/.test(url.hostname);
 const isCDN = (url) => /fonts\.(googleapis|gstatic)\.com|unpkg\.com/.test(url.hostname);
