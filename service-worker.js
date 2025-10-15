@@ -6,15 +6,15 @@
   - Cache-first para fontes e CDNs comuns
 */
 
-const APP_VERSION = 'v1.0.4';
+const APP_VERSION = 'v1.0.5';
 const APP_SHELL = `clima-agora-shell-${APP_VERSION}`;
 const RUNTIME_CACHE = `clima-agora-runtime-${APP_VERSION}`;
 
 const APP_SHELL_FILES = [
   './',
   './index.html',
-  './style.css?v=1.0.4',
-  './script.js?v=1.0.4',
+  './style.min.css?v=1.0.5',
+  './script.min.js?v=1.0.5',
   './manifest.webmanifest',
   './assets/icons/favicon.svg',
   './assets/icons/icon-192.png',

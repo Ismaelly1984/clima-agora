@@ -29,9 +29,11 @@
         "@type": "WebApplication",
         "name": "Clima Agora",
         "applicationCategory": "WeatherApplication",
+        "applicationSubCategory": "Previsão meteorológica e condições climáticas",
         "operatingSystem": "Android, iOS, Web",
         "description": "Veja a previsão do tempo em tempo real para qualquer cidade. Clima Agora mostra temperatura, umidade e condições atuais de forma simples e elegante.",
         "url": "https://ismaelly1984.github.io/ClimaAgora/",
+        "screenshot": "https://ismaelly1984.github.io/ClimaAgora/assets/og-image.png",
         "creator": {
           "@type": "Person",
           "name": "Ismael Nunes",
@@ -63,6 +65,10 @@
     <!-- Fonte Google (Poppins) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="//api.openweathermap.org" />
+    <link rel="dns-prefetch" href="//openweathermap.org" />
+    <link rel="preconnect" href="https://api.openweathermap.org" crossorigin />
+    <link rel="preconnect" href="https://openweathermap.org" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'" />
     <noscript>
@@ -77,9 +83,11 @@
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="style.css?v=1.0.4" />
+    <link rel="preload" as="style" href="style.min.css?v=1.0.5" />
+    <link rel="stylesheet" href="style.min.css?v=1.0.5" />
   </head>
   <body class="theme-auto">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
     <!-- Sprite de ícones (inline, reutilizável) -->
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
       <symbol id="i-sun" viewBox="0 0 24 24">
@@ -132,6 +140,11 @@
         <line x1="12" y1="19" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         <line x1="16" y1="19" x2="16" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="7 10 12 15 17 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
     </svg>
     <div class="overlay" aria-hidden="true"></div>
     <noscript>
@@ -146,9 +159,16 @@
       <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
         <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"/></svg>
       </button>
+      <button id="installBtn" class="icon-btn hidden" aria-label="Instalar aplicativo">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-download"/></svg>
+        <span>Instalar</span>
+      </button>
     </header>
 
-    <main class="container">
+    <main id="main" class="container" role="main">
+      <p class="intro">
+        O Clima Agora oferece previsões atualizadas de temperatura, umidade e vento para qualquer cidade do Brasil e do mundo — em tempo real, com design moderno e fácil de usar.
+      </p>
       <section class="search-card glass" role="search">
         <div class="search-row">
           <label class="sr-only" for="cityInput">Pesquisar cidade</label>
@@ -215,15 +235,8 @@
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <!-- Script principal -->
-    <script src="script.js?v=1.0.4"></script>
-    <script>
-      // Inicializa ícones Lucide em idle para reduzir TBT
-      document.addEventListener('DOMContentLoaded', () => {
-        const initIcons = () => { if (window.lucide) lucide.createIcons(); };
-        if (window.requestIdleCallback) requestIdleCallback(initIcons, { timeout: 1500 });
-        else setTimeout(initIcons, 0);
-      });
-    </script>
+    <script src="script.min.js?v=1.0.5" defer></script>
+    
     <script>
       // Registro do Service Worker (PWA)
       if ('serviceWorker' in navigator) {

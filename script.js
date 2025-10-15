@@ -19,10 +19,12 @@ const RAIN_MM_HIGHLIGHT = 5; // limiar (mm) para destaque de chuva
 // Seletores
 const el = {
   body: document.body,
+  main: document.getElementById("main"),
   cityInput: document.getElementById("cityInput"),
   searchBtn: document.getElementById("searchBtn"),
   geoBtn: document.getElementById("geoBtn"),
   unitToggle: document.getElementById("unitToggle"),
+  installBtn: document.getElementById("installBtn"),
   statusMsg: document.getElementById("statusMsg"),
   weatherCard: document.getElementById("weatherCard"),
   cityName: document.getElementById("cityName"),
@@ -55,6 +57,23 @@ const el = {
 const kmh = (ms) => (ms * 3.6);
 const mph = (mphVal) => mphVal; // já em mph quando units=imperial
 const capitalize = (s) => s ? (s[0].toUpperCase() + s.slice(1)) : s;
+// agenda execução em idle (com fallback)
+function getIdleTimeout() {
+  try {
+    const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (c) {
+      if (c.saveData) return 1500;
+      const t = String(c.effectiveType || '').toLowerCase();
+      if (t.includes('2g') || t.includes('slow')) return 1500;
+      if (t.includes('3g')) return 900;
+    }
+  } catch {}
+  return 300;
+}
+function inIdle(fn, timeout = getIdleTimeout()) {
+  if ('requestIdleCallback' in window) return requestIdleCallback(fn, { timeout });
+  return setTimeout(fn, Math.min(timeout, 300));
+}
 
 // Tema: auto / light / dark
 function setTheme(mode = "auto") {
@@ -163,9 +182,11 @@ function setLoading(loading) {
     el.searchBtn.disabled = true;
     el.searchBtn.style.opacity = 0.75;
     el.statusMsg.textContent = "Carregando...";
+    if (el.main) el.main.setAttribute('aria-busy', 'true');
   } else {
     el.searchBtn.disabled = false;
     el.searchBtn.style.opacity = 1;
+    if (el.main) el.main.removeAttribute('aria-busy');
   }
 }
 
@@ -487,10 +508,8 @@ async function fetchWeatherByCity(city) {
     el.statusMsg.textContent = `${data.name}, ${data.sys?.country || ""}`;
     localStorage.setItem("lastCity", data.name);
     addCityToHistory(data.name);
-    // previsao 5 dias
-    fetchForecastByCity(data.name);
-    // previsao de hoje
-    // será renderizada dentro de fetchForecastByCity com o mesmo payload
+    // previsões em idle para reduzir LCP/TBT
+    inIdle(() => fetchForecastByCity(data.name));
   } catch (err) {
     clearWeatherCard();
     el.statusMsg.textContent = err.message || "Erro ao buscar dados.";
@@ -522,9 +541,8 @@ async function fetchWeatherByCoords(lat, lon) {
     el.statusMsg.textContent = `${data.name}, ${data.sys?.country || ""}`;
     localStorage.setItem("lastCity", data.name);
     addCityToHistory(data.name);
-    // previsao 5 dias por coordenadas
-    fetchForecastByCoords(lat, lon);
-    // previsao de hoje renderizada junto com a de 5 dias
+    // previsões em idle para reduzir LCP/TBT
+    inIdle(() => fetchForecastByCoords(lat, lon));
   } catch (err) {
     clearWeatherCard();
     el.statusMsg.textContent = err.message || "Erro na geolocalização.";
@@ -602,7 +620,7 @@ function renderForecast(data) {
       const iconUrl = `https://openweathermap.org/img/wn/${d.icon}@2x.png`;
       const label = weekdayPT(d.date);
       card.innerHTML = `
-        <img src="${iconUrl}" alt="" class="f-icon" loading="lazy" width="56" height="56"/>
+        <img src="${iconUrl}" alt="" class="f-icon" loading="lazy" decoding="async" width="56" height="56"/>
         <div class="f-day">${label}</div>
         <div class="f-temps"><span class="min">${Math.round(d.min)}${tUnit}</span> · <span class="max">${Math.round(d.max)}${tUnit}</span></div>
       `;
@@ -739,7 +757,7 @@ function renderTodayForecast(data) {
     card.className = cClass;
     card.innerHTML = `
       <div class="forecast-time">${hh}:00</div>
-      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="f-icon" loading="lazy" width="48" height="48" />
+      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="f-icon" loading="lazy" decoding="async" width="48" height="48" />
       <div class="forecast-temp">${t}</div>
       <div class="forecast-desc">${capitalize(desc)}</div>
       <div class="forecast-pop">🌧️ ${popPct}% de chance</div>
@@ -824,6 +842,26 @@ function wireEvents() {
   if (el.unitToggle) {
     el.unitToggle.addEventListener('click', toggleUnits);
   }
+
+  // PWA install prompt
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (el.installBtn) el.installBtn.classList.remove('hidden');
+  });
+  if (el.installBtn) {
+    el.installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      try { await deferredPrompt.userChoice; } catch {}
+      deferredPrompt = null;
+      el.installBtn.classList.add('hidden');
+    });
+  }
+  window.addEventListener('appinstalled', () => {
+    if (el.installBtn) el.installBtn.classList.add('hidden');
+  });
 
   // Online/Offline
   window.addEventListener("offline", () => showToast("Você está offline.", "error", 2500));
