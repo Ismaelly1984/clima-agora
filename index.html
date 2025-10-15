@@ -117,8 +117,7 @@
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
 
     <!-- Estilos -->
-    <link rel="preload" as="style" href="style.min.css?v=1.0.7" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="style.min.css?v=1.0.7" /></noscript>
+    <link rel="stylesheet" href="style.min.css?v=1.0.7" />
   </head>
   <body class="theme-auto">
     <a href="#main" class="skip-link">Pular para o conteúdo</a>
@@ -271,33 +270,7 @@
     <!-- Script principal -->
     <script src="script.min.js?v=1.0.5" defer></script>
     
-    <script>
-      // Registro do Service Worker (PWA)
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./service-worker.js')
-            .then((reg) => {
-              // Se já existir uma atualização pronta
-              if (reg.waiting) {
-                if (window.showToast) showToast('Nova versão disponível. Recarregue a página.', 'info', 4000);
-                if (window.showUpdateBanner) showUpdateBanner();
-              }
-              // Detecta novas atualizações
-              reg.addEventListener('updatefound', () => {
-                const nw = reg.installing;
-                if (!nw) return;
-                nw.addEventListener('statechange', () => {
-                  if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-                    if (window.showToast) showToast('Nova versão instalada. Recarregue.', 'info', 4000);
-                    if (window.showUpdateBanner) showUpdateBanner();
-                  }
-                });
-              });
-            })
-            .catch(err => console.warn('SW falhou ao registrar:', err));
-        });
-      }
-    </script>
+    
     <div id="updateBanner" class="update-banner hidden" role="status" aria-live="polite">
       Uma nova versão está disponível.
       <button id="reloadBtn" class="primary-btn" aria-label="Recarregar para atualizar">Atualizar</button>

@@ -911,6 +911,29 @@ function initApp() {
   renderHistory();
   updateUnitToggleUI();
   wireEvents();
+  // Registro do Service Worker (sem inline script, compatível com CSP)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then((reg) => {
+          if (reg.waiting) {
+            try { if (window.showToast) showToast('Nova versão disponível. Recarregue a página.', 'info', 4000); } catch {}
+            try { if (window.showUpdateBanner) showUpdateBanner(); } catch {}
+          }
+          reg.addEventListener('updatefound', () => {
+            const nw = reg.installing;
+            if (!nw) return;
+            nw.addEventListener('statechange', () => {
+              if (nw.state === 'installed' && navigator.serviceWorker.controller) {
+                try { if (window.showToast) showToast('Nova versão instalada. Recarregue.', 'info', 4000); } catch {}
+                try { if (window.showUpdateBanner) showUpdateBanner(); } catch {}
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('SW falhou ao registrar:', err));
+    });
+  }
   const last = localStorage.getItem("lastCity");
   if (last) {
     el.cityInput.value = last;
