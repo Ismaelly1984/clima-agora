@@ -66,10 +66,13 @@ self.addEventListener('activate', (event) => {
 });
 
 // Mensageria para permitir skipWaiting a partir da página
-self.addEventListener('message', (event) => {
-  if (event && event.data === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
+self.addEventListener('message', async (event) => {
+  try {
+    if (!event || event.data !== 'SKIP_WAITING') return;
+    const clientsArr = await self.clients.matchAll({ includeUncontrolled: true, type: 'window' });
+    const isKnown = clientsArr.some(c => c.id === event.source?.id);
+    if (isKnown) self.skipWaiting();
+  } catch {}
 });
 
 // Util: identifica domínios

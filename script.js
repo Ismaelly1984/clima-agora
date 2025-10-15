@@ -123,7 +123,8 @@ function svgIcon(name, size = 20, extraClass = "") {
 
 // Unidades: metric (°C, m/s) → exibimos km/h; imperial (°F, mph)
 function getUnits() {
-  return localStorage.getItem('unitsPref') || 'metric';
+  const u = (localStorage.getItem('unitsPref') || 'metric').toLowerCase();
+  return u === 'imperial' ? 'imperial' : 'metric';
 }
 function setUnits(un) {
   localStorage.setItem('unitsPref', un);
@@ -619,11 +620,29 @@ function renderForecast(data) {
       card.className = 'forecast-card';
       const iconUrl = `https://openweathermap.org/img/wn/${d.icon}@2x.png`;
       const label = weekdayPT(d.date);
-      card.innerHTML = `
-        <img src="${iconUrl}" alt="" class="f-icon" loading="lazy" decoding="async" width="56" height="56"/>
-        <div class="f-day">${label}</div>
-        <div class="f-temps"><span class="min">${Math.round(d.min)}${tUnit}</span> · <span class="max">${Math.round(d.max)}${tUnit}</span></div>
-      `;
+      // imagem
+      const img = new Image();
+      img.src = iconUrl;
+      img.className = 'f-icon';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.width = 56; img.height = 56;
+      // dia
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'f-day';
+      dayDiv.textContent = label;
+      // temperaturas
+      const temps = document.createElement('div');
+      temps.className = 'f-temps';
+      const minSpan = document.createElement('span');
+      minSpan.className = 'min';
+      minSpan.textContent = `${Math.round(d.min)}${tUnit}`;
+      const sep = document.createTextNode(' · ');
+      const maxSpan = document.createElement('span');
+      maxSpan.className = 'max';
+      maxSpan.textContent = `${Math.round(d.max)}${tUnit}`;
+      temps.append(minSpan, sep, maxSpan);
+      card.replaceChildren(img, dayDiv, temps);
       el.forecastRow.appendChild(card);
     });
     el.forecastSection.classList.remove('hidden');
@@ -755,14 +774,24 @@ function renderTodayForecast(data) {
     if (rainMm > 0) cClass += ' rainy';
     else if (highPop) cClass += ' likely';
     card.className = cClass;
-    card.innerHTML = `
-      <div class="forecast-time">${hh}:00</div>
-      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="f-icon" loading="lazy" decoding="async" width="48" height="48" />
-      <div class="forecast-temp">${t}</div>
-      <div class="forecast-desc">${capitalize(desc)}</div>
-      <div class="forecast-pop">🌧️ ${popPct}% de chance</div>
-      ${rainMm > 0 ? `<div class=\"forecast-rain\">💧 ${rainMm.toFixed(1)} mm</div>` : ''}
-    `;
+    // hora
+    const timeDiv = document.createElement('div');
+    timeDiv.className = 'forecast-time';
+    timeDiv.textContent = `${hh}:00`;
+    // imagem
+    const img = new Image();
+    img.src = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+    img.className = 'f-icon';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.width = 48; img.height = 48;
+    // temp/desc/pop/rain
+    const tempDiv = document.createElement('div'); tempDiv.className = 'forecast-temp'; tempDiv.textContent = t;
+    const descDiv = document.createElement('div'); descDiv.className = 'forecast-desc'; descDiv.textContent = capitalize(desc);
+    const popDiv = document.createElement('div'); popDiv.className = 'forecast-pop'; popDiv.textContent = `🌧️ ${popPct}% de chance`;
+    const parts = [timeDiv, img, tempDiv, descDiv, popDiv];
+    if (rainMm > 0) { const rainDiv = document.createElement('div'); rainDiv.className = 'forecast-rain'; rainDiv.textContent = `💧 ${rainMm.toFixed(1)} mm`; parts.push(rainDiv); }
+    card.replaceChildren(...parts);
     el.todayRow.appendChild(card);
   });
   el.todaySection.classList.remove('hidden');
@@ -790,7 +819,18 @@ function renderHistory() {
   const list = loadHistory();
   if (!list.length) { el.historyList.classList.add('hidden'); el.historyList.innerHTML = ''; return; }
   el.historyList.classList.remove('hidden');
-  el.historyList.innerHTML = list.map(c => `<button class="chip" data-city="${c}" title="${c}">${c}</button>`).join('');
+  // Renderização segura (sem innerHTML) para evitar XSS
+  const frag = document.createDocumentFragment();
+  list.forEach((c) => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.setAttribute('data-city', c);
+    b.title = c;
+    b.textContent = c;
+    frag.appendChild(b);
+  });
+  el.historyList.innerHTML = '';
+  el.historyList.appendChild(frag);
 }
 // Eventos
 function wireEvents() {
