@@ -292,12 +292,12 @@ function ensureRainSummaryMetrics() {
 }
 
 function clearWeatherCard() {
-  el.cityName.textContent = "—";
-  el.country.textContent = "—";
-  el.description.textContent = "—";
-  el.temp.textContent = "—";
-  el.humidity.textContent = "—";
-  el.wind.textContent = "—";
+  el.cityName.textContent = "";
+  el.country.textContent = "";
+  el.description.textContent = "";
+  el.temp.textContent = "";
+  el.humidity.textContent = "";
+  el.wind.textContent = "";
   el.weatherIcon.src = "";
   el.weatherIcon.alt = "";
   el.weatherCard.classList.add("hidden");
@@ -598,7 +598,7 @@ function renderForecast(data) {
       const iconUrl = `https://openweathermap.org/img/wn/${d.icon}@2x.png`;
       const label = weekdayPT(d.date);
       card.innerHTML = `
-        <img src="${iconUrl}" alt="" class="f-icon" loading="lazy"/>
+        <img src="${iconUrl}" alt="" class="f-icon" loading="lazy" width="56" height="56"/>
         <div class="f-day">${label}</div>
         <div class="f-temps"><span class="min">${Math.round(d.min)}${tUnit}</span> · <span class="max">${Math.round(d.max)}${tUnit}</span></div>
       `;
@@ -735,7 +735,7 @@ function renderTodayForecast(data) {
     card.className = cClass;
     card.innerHTML = `
       <div class="forecast-time">${hh}:00</div>
-      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="f-icon" loading="lazy" />
+      <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="" class="f-icon" loading="lazy" width="48" height="48" />
       <div class="forecast-temp">${t}</div>
       <div class="forecast-desc">${capitalize(desc)}</div>
       <div class="forecast-pop">🌧️ ${popPct}% de chance</div>

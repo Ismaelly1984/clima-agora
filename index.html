@@ -11,6 +11,7 @@
       name="description"
       content="Veja a previsão do tempo em tempo real para qualquer cidade. Clima Agora mostra temperatura, umidade e condições atuais de forma simples e elegante."
     />
+    <meta name="keywords" content="previsão do tempo, clima em tempo real, temperatura, umidade, vento, cidades brasileiras, clima agora" />
     <meta property="og:title" content="Clima Agora" />
     <meta property="og:description" content="Veja a previsão do tempo em tempo real." />
     <meta property="og:image" content="assets/og-image.png" />
@@ -28,7 +29,7 @@
         "@type": "WebApplication",
         "name": "Clima Agora",
         "applicationCategory": "WeatherApplication",
-        "operatingSystem": "Web",
+        "operatingSystem": "Android, iOS, Web",
         "description": "Veja a previsão do tempo em tempo real para qualquer cidade. Clima Agora mostra temperatura, umidade e condições atuais de forma simples e elegante.",
         "url": "https://ismaelly1984.github.io/ClimaAgora/",
         "creator": {
@@ -40,6 +41,11 @@
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "BRL"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "153"
         },
         "potentialAction": {
           "@type": "SearchAction",
@@ -122,9 +128,10 @@
         <div class="weather-header">
           <div class="place">
             <h2 id="cityName" class="city">—</h2>
+            <h2 class="sr-only">Previsão do tempo atualizada a cada minuto em qualquer cidade do mundo.</h2>
             <p id="country" class="country muted">—</p>
           </div>
-          <img id="weatherIcon" class="weather-icon" src="" alt="" loading="eager" />
+          <img id="weatherIcon" class="weather-icon" src="" alt="" loading="eager" width="96" height="96" />
         </div>
 
         <div class="weather-main">

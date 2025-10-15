@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://ismaelly1984.github.io/ClimaAgora/sitemap.xml
+
