@@ -8,6 +8,8 @@
 .mobile-nav nav{display:flex;flex-direction:column;gap:8px}
 @media (max-width: 900px){.site-header nav{display:none}#menuToggle{display:inline-flex}}
 
+
+
 /* CTA de instalar (discreto) */
 .home-actions{margin:4px 2px 10px}
 .install-cta{display:inline-flex;align-items:center;gap:6px;background:transparent;border:none;color:var(--text-muted);font-size:14px;padding:4px 0;cursor:pointer}
