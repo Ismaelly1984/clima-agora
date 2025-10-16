@@ -935,8 +935,14 @@ function initApp() {
     });
   }
   const hasSearchUI = !!el.cityInput && !!el.weatherCard && !!el.searchBtn;
+  // Permite deep-link via hash: index.html#q=São%20Paulo
+  const hash = (typeof location !== 'undefined' && location.hash) ? new URLSearchParams(location.hash.slice(1)) : null;
+  const hashCity = hash && (hash.get('q') || hash.get('city'));
   const last = hasSearchUI ? localStorage.getItem("lastCity") : null;
-  if (hasSearchUI && last) {
+  if (hasSearchUI && hashCity) {
+    try { el.cityInput.value = decodeURIComponent(hashCity); } catch { el.cityInput.value = hashCity; }
+    fetchWeatherByCity(el.cityInput.value);
+  } else if (hasSearchUI && last) {
     try { el.cityInput.value = last; } catch {}
     fetchWeatherByCity(last);
   } else if (hasSearchUI) {
