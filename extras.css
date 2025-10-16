@@ -72,6 +72,30 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .forecast-time{font-size:13px}
 }
 
+/* Mobile ultra-estreito <= 320px */
+@media (max-width: 320px){
+  .site-header{padding:10px 8px}
+  .brand-title{font-size:15px}
+  .brand-icon{width:22px;height:22px}
+  .container{padding:8px 10px 32px}
+  .intro{font-size:14px}
+  .primary-btn,.secondary-btn,.toggle-btn{padding:9px 10px;font-size:13px;min-height:44px}
+  input#cityInput{padding:10px 12px;font-size:14px}
+  #menuToggle.icon-btn{min-height:44px}
+  .weather-icon{width:64px;height:64px}
+  .temperature{font-size:22px}
+  .description{font-size:15px}
+  .metric{padding:10px}
+  .metric .label{font-size:11px}
+  .metric .value{font-size:15px}
+  .forecast-row{grid-auto-columns:minmax(94px,1fr)}
+  .today-row{grid-auto-columns:minmax(100px,1fr)}
+  .forecast-desc{font-size:11px}
+  .forecast-pop,.forecast-rain{font-size:10px}
+  .forecast-time{font-size:12px}
+  .chip{font-size:12px;padding:6px 8px}
+}
+
 /* Safe-area (iOS notch) */
 @supports (padding: max(0px)){
   .site-header{
