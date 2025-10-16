@@ -32,6 +32,11 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
 }
 
 /* ---------- Responsividade adicional ---------- */
+/* Ajuste global: cartas de previsão mais compactas */
+.forecast-row{grid-auto-columns:minmax(100px,1fr)}
+.today-row{grid-auto-columns:minmax(120px,1fr)}
+.forecast-card .f-icon{width:48px;height:48px}
+.today-card .f-icon{width:44px;height:44px}
 /* Telas grandes: ampliar largura útil */
 @media (min-width: 1200px){
   .site-header{max-width: 1200px}
@@ -55,17 +60,17 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   input#cityInput{padding:10px 12px}
   .weather-icon{width:72px;height:72px}
   .temperature{font-size:24px}
-  .forecast-card{min-height:108px}
-  .today-row{grid-auto-columns:minmax(120px,1fr)}
-  .forecast-row{grid-auto-columns:minmax(110px,1fr)}
+  .forecast-card{min-height:104px;padding:10px}
+  .today-row{grid-auto-columns:minmax(110px,1fr)}
+  .forecast-row{grid-auto-columns:minmax(100px,1fr);gap:8px}
   .weather-extra{grid-template-columns:1fr}
   #menuToggle.icon-btn{min-height:44px}
 }
 
 /* Mobile muito estreito <= 360px: ajustes finos de largura */
 @media (max-width: 360px){
-  .forecast-row{grid-auto-columns:minmax(100px,1fr)}
-  .today-row{grid-auto-columns:minmax(110px,1fr)}
+  .forecast-row{grid-auto-columns:minmax(90px,1fr);gap:6px}
+  .today-row{grid-auto-columns:minmax(96px,1fr)}
   .description{font-size:16px}
   .forecast-desc{font-size:12px}
   .forecast-pop,.forecast-rain{font-size:11px}
@@ -88,8 +93,8 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .metric{padding:10px}
   .metric .label{font-size:11px}
   .metric .value{font-size:15px}
-  .forecast-row{grid-auto-columns:minmax(94px,1fr)}
-  .today-row{grid-auto-columns:minmax(100px,1fr)}
+  .forecast-row{grid-auto-columns:minmax(86px,1fr);gap:6px}
+  .today-row{grid-auto-columns:minmax(92px,1fr)}
   .forecast-desc{font-size:11px}
   .forecast-pop,.forecast-rain{font-size:10px}
   .forecast-time{font-size:12px}
