@@ -65,6 +65,12 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .forecast-row{grid-auto-columns:minmax(100px,1fr);gap:8px}
   .weather-extra{grid-template-columns:1fr}
   #menuToggle.icon-btn{min-height:44px}
+  /* Reorganiza a barra de busca: input + buscar lado a lado */
+  .search-row{grid-template-columns: 1fr auto !important; grid-auto-rows: minmax(44px,auto); align-items: stretch}
+  #cityInput{grid-column:1}
+  #searchBtn{grid-column:2}
+  #geoBtn{grid-column:1 / -1}
+  #unitToggle{grid-column:1 / -1; justify-self:end}
 }
 
 /* Mobile muito estreito <= 360px: ajustes finos de largura */
@@ -75,6 +81,9 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .forecast-desc{font-size:12px}
   .forecast-pop,.forecast-rain{font-size:11px}
   .forecast-time{font-size:13px}
+  /* Mantém layout da busca compacto */
+  .search-row{grid-template-columns: 1fr auto !important; gap:8px}
+  #unitToggle{justify-self:stretch}
 }
 
 /* Mobile ultra-estreito <= 320px */
@@ -99,6 +108,9 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .forecast-pop,.forecast-rain{font-size:10px}
   .forecast-time{font-size:12px}
   .chip{font-size:12px;padding:6px 8px}
+  /* Busca ainda mais compacta */
+  .search-row{grid-template-columns: 1fr auto !important; gap:6px}
+  #searchBtn{padding:9px 10px}
 }
 
 /* Safe-area (iOS notch) */
