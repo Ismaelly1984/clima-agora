@@ -68,11 +68,20 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .weather-extra{grid-template-columns:1fr}
   #menuToggle.icon-btn{min-height:44px}
   /* Reorganiza a barra de busca: input + buscar lado a lado */
-  .search-row{grid-template-columns: 1fr auto !important; grid-auto-rows: minmax(44px,auto); align-items: stretch}
-  #cityInput{grid-column:1}
-  #searchBtn{grid-column:2}
-  #geoBtn{grid-column:1 / -1}
-  #unitToggle{grid-column:1 / -1; justify-self:end}
+  .search-row{
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "input search"
+      "geo   geo"
+      "unit  unit";
+    grid-auto-rows: minmax(44px,auto);
+    align-items: stretch;
+    gap: 8px;
+  }
+  #cityInput{grid-area: input}
+  #searchBtn{grid-area: search; white-space: nowrap}
+  #geoBtn{grid-area: geo}
+  #unitToggle{grid-area: unit; justify-self:end}
 }
 
 /* Mobile muito estreito <= 360px: ajustes finos de largura */
