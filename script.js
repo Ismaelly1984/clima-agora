@@ -316,16 +316,14 @@ function ensureRainSummaryMetrics() {
 }
 
 function clearWeatherCard() {
-  el.cityName.textContent = "";
-  el.country.textContent = "";
-  el.description.textContent = "";
-  el.temp.textContent = "";
-  el.humidity.textContent = "";
-  el.wind.textContent = "";
-  el.weatherIcon.src = "";
-  el.weatherIcon.alt = "";
-  el.weatherCard.classList.add("hidden");
-  el.weatherCard.classList.remove("visible");
+  if (el.cityName) el.cityName.textContent = "";
+  if (el.country) el.country.textContent = "";
+  if (el.description) el.description.textContent = "";
+  if (el.temp) el.temp.textContent = "";
+  if (el.humidity) el.humidity.textContent = "";
+  if (el.wind) el.wind.textContent = "";
+  if (el.weatherIcon) { el.weatherIcon.src = ""; el.weatherIcon.alt = ""; }
+  if (el.weatherCard) { el.weatherCard.classList.add("hidden"); el.weatherCard.classList.remove("visible"); }
   if (el.popSummaryVal) el.popSummaryVal.textContent = '—';
   if (el.rainSummaryVal) el.rainSummaryVal.textContent = '—';
   if (el.popSummaryBox) el.popSummaryBox.classList.remove('rainy','likely');
@@ -826,12 +824,14 @@ function renderHistory() {
 }
 // Eventos
 function wireEvents() {
-  el.searchBtn.addEventListener("click", () => fetchWeatherByCity(el.cityInput.value));
-  el.cityInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") fetchWeatherByCity(el.cityInput.value);
-  });
+  if (el.searchBtn && el.cityInput) {
+    el.searchBtn.addEventListener("click", () => fetchWeatherByCity(el.cityInput.value));
+    el.cityInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") fetchWeatherByCity(el.cityInput.value);
+    });
+  }
 
-  el.geoBtn.addEventListener("click", async () => {
+  if (el.geoBtn) el.geoBtn.addEventListener("click", async () => {
     if (!navigator.geolocation) {
       showToast("Geolocalização não suportada.", "error");
       return;
@@ -870,7 +870,7 @@ function wireEvents() {
   });
 
   // Tema
-  el.themeToggle.addEventListener("click", cycleTheme);
+  if (el.themeToggle) el.themeToggle.addEventListener("click", cycleTheme);
   if (el.unitToggle) {
     el.unitToggle.addEventListener('click', toggleUnits);
   }
@@ -934,12 +934,13 @@ function initApp() {
         .catch(err => console.warn('SW falhou ao registrar:', err));
     });
   }
-  const last = localStorage.getItem("lastCity");
-  if (last) {
-    el.cityInput.value = last;
+  const hasSearchUI = !!el.cityInput && !!el.weatherCard && !!el.searchBtn;
+  const last = hasSearchUI ? localStorage.getItem("lastCity") : null;
+  if (hasSearchUI && last) {
+    try { el.cityInput.value = last; } catch {}
     fetchWeatherByCity(last);
-  } else {
-    el.statusMsg.textContent = "Pesquise uma cidade";
+  } else if (hasSearchUI) {
+    if (el.statusMsg) el.statusMsg.textContent = "Pesquise uma cidade";
     clearWeatherCard();
   }
 }

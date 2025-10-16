@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Previsão – Clima Agora | 3h em 3h e 5 dias</title>
+    <meta name="description" content="Entenda como o Clima Agora calcula as previsões de 3 horas e de 5 dias: horários, mínimas e máximas, probabilidade e quantidade de chuva (mm)." />
+    <meta property="og:title" content="Previsão – Clima Agora" />
+    <meta property="og:description" content="Como funcionam as previsões de 3h em 3h e de 5 dias no Clima Agora." />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://clima-agora.vercel.app/previsao.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Previsão – Clima Agora" />
+    <meta name="twitter:description" content="Como funcionam as previsões de 3h e 5 dias" />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <link rel="canonical" href="https://clima-agora.vercel.app/previsao.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="style.min.css?v=1.0.7" />
+  </head>
+  <body class="theme-auto">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+    <!-- Sprite de ícones -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </svg>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="brand">
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sun"/></svg>
+        <h1 class="brand-title">Clima Agora</h1>
+      </div>
+      <nav aria-label="Navegação principal">
+        <a class="secondary-btn" href="index.html">Início</a>
+        <a class="secondary-btn" href="previsao.html" aria-current="page">Previsão</a>
+        <a class="secondary-btn" href="cidades.html">Cidades</a>
+        <a class="secondary-btn" href="como-funciona.html">Como funciona</a>
+        <a class="secondary-btn" href="instalar.html">Instalar</a>
+        <a class="secondary-btn" href="privacidade.html">Privacidade</a>
+        <a class="secondary-btn" href="sobre.html">Sobre</a>
+      </nav>
+      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"/></svg>
+      </button>
+    </header>
+
+    <main id="main" class="container" role="main">
+      <section class="glass" style="padding:16px">
+        <h1>Como o Clima Agora calcula as previsões</h1>
+        <p>
+          O Clima Agora combina dados do OpenWeather para exibir, de forma clara e confiável, duas visões de previsão: a previsão detalhada de <strong>3 horas em 3 horas</strong> para o dia atual e a <strong>previsão estendida de 5 dias</strong>. Nosso objetivo é oferecer uma leitura rápida e precisa, com ênfase em temperatura, descrição do clima, probabilidade de chuva (%) e quantidade estimada de precipitação (mm) quando disponível.
+        </p>
+        <h2>Previsão de 3 horas em 3 horas</h2>
+        <p>
+          Essa seção mostra os próximos blocos de 3 horas do <em>dia atual</em>. Cada card contém: <strong>hora</strong>, <strong>ícone</strong>, <strong>temperatura</strong>, <strong>descrição</strong> do clima, <strong>probabilidade de chuva</strong> (pop, em %) e <strong>chuva estimada</strong> para o período (mm/3h) quando informado. Para facilitar a leitura, destacamos visualmente períodos com chuva (classe “rainy”) e, quando não há mm mas a probabilidade é alta (≥ 60%), aplicamos um alerta leve (classe “likely”).
+        </p>
+        <p>
+          Todos os horários são ajustados ao <strong>fuso da cidade</strong> consultada. Se estiver offline, o app mantém a interface e informa a falta de conexão por meio de toasts, preservando a experiência do usuário.
+        </p>
+        <h2>Previsão de 5 dias (mínimas e máximas)</h2>
+        <p>
+          Para cada um dos próximos 5 dias, agregamos os blocos de 3 horas e calculamos as <strong>temperaturas mínima e máxima</strong> do dia. Sempre que possível, o ícone preferido é o do período próximo ao meio‑dia local, pois reflete melhor as condições médias do dia. O objetivo é dar uma visão de <strong>tendência</strong>, enquanto a previsão de 3 horas detalha as janelas de curto prazo.
+        </p>
+        <h2>Unidades, idioma e acessibilidade</h2>
+        <p>
+          Você pode alternar entre <strong>°C</strong> e <strong>°F</strong> a qualquer momento. O idioma é configurado para <strong>pt-BR</strong> e a interface considera preferências do usuário, como <em>redução de movimento</em> e <em>alto contraste</em>. O layout utiliza <strong>glassmorphism</strong>, carrosséis com <em>scroll-snap</em> em dispositivos móveis e elementos com pelo menos <strong>44px</strong> de altura para áreas clicáveis.
+        </p>
+        <p>
+          Veja também: <a href="cidades.html">cidades populares</a>, <a href="como-funciona.html">como funciona a arquitetura</a> e o guia <a href="instalar.html">como instalar o PWA</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted)">
+      © 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a>
+    </footer>
+
+    <script src="script.min.js?v=1.0.5" defer></script>
+  </body>
+  </html>
+

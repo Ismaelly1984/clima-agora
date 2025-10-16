@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Instalar – Clima Agora | Android, iOS e Desktop</title>
+    <meta name="description" content="Aprenda a instalar o Clima Agora como aplicativo (PWA) em Android, iOS e Desktop, com passos simples e dicas." />
+    <meta property="og:title" content="Instalar – Clima Agora" />
+    <meta property="og:description" content="Guia de instalação do PWA no Android, iOS e Desktop." />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://clima-agora.vercel.app/instalar.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Instalar – Clima Agora" />
+    <meta name="twitter:description" content="Instale o PWA do Clima Agora no seu dispositivo." />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <link rel="canonical" href="https://clima-agora.vercel.app/instalar.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="style.min.css?v=1.0.7" />
+  </head>
+  <body class="theme-auto">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    </svg>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="brand">
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-sun"/></svg>
+        <h1 class="brand-title">Clima Agora</h1>
+      </div>
+      <nav aria-label="Navegação principal">
+        <a class="secondary-btn" href="index.html">Início</a>
+        <a class="secondary-btn" href="previsao.html">Previsão</a>
+        <a class="secondary-btn" href="cidades.html">Cidades</a>
+        <a class="secondary-btn" href="como-funciona.html">Como funciona</a>
+        <a class="secondary-btn" href="instalar.html" aria-current="page">Instalar</a>
+        <a class="secondary-btn" href="privacidade.html">Privacidade</a>
+        <a class="secondary-btn" href="sobre.html">Sobre</a>
+      </nav>
+      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-moon"/></svg>
+      </button>
+    </header>
+
+    <main id="main" class="container" role="main">
+      <section class="glass" style="padding:16px">
+        <h1>Como instalar o Clima Agora (PWA)</h1>
+        <p>
+          O Clima Agora é um <strong>PWA</strong>, ou seja, você pode instalá‑lo como aplicativo no seu dispositivo. A instalação é simples e funciona no <strong>Android</strong>, <strong>iOS</strong> e <strong>Desktop</strong> (Chrome/Edge). Uma vez instalado, o app abre em tela própria, com navegação fluida e suporte offline do shell.
+        </p>
+        <h2>Android (Chrome/Edge)</h2>
+        <p>
+          1) Abra o Clima Agora. 2) Toque no ícone de menu (⋮). 3) Escolha <em>Adicionar à tela inicial</em> ou <em>Instalar app</em>. 4) Confirme para criar o atalho. O app será exibido como um aplicativo nativo, com ícone e tela inicial.
+        </p>
+        <h2>iOS (Safari)</h2>
+        <p>
+          1) Abra o site no Safari. 2) Toque no ícone de compartilhamento. 3) Selecione <em>Adicionar à Tela de Início</em>. 4) Edite o nome, se desejar, e confirme. O Clima Agora aparecerá na tela inicial como um app.
+        </p>
+        <h2>Desktop (Chrome/Edge)</h2>
+        <p>
+          1) Abra o site. 2) Veja se aparece o botão de <em>Instalar</em> na barra de endereço; se não, abra o menu e selecione <em>Instalar Clima Agora</em>. 3) Confirme. O aplicativo ficará acessível no menu de apps e poderá ser fixado na barra de tarefas.
+        </p>
+        <p>
+          Dica: se o banner nativo não aparecer automaticamente, use o botão <strong>“Instalar”</strong> no topo do site (quando disponível). Veja também <a href="como-funciona.html">Como funciona</a> e <a href="privacidade.html">Política de privacidade</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted)">
+      © 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a>
+    </footer>
+
+    <script src="script.min.js?v=1.0.5" defer></script>
+  </body>
+  </html>
+

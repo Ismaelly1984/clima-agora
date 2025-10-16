@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacidade – Clima Agora | Dados e Geolocalização</title>
+    <meta name="description" content="Política de privacidade do Clima Agora: dados coletados, uso de geolocalização, cookies, armazenamento local e contato." />
+    <meta property="og:title" content="Privacidade – Clima Agora" />
+    <meta property="og:description" content="Saiba como o Clima Agora trata dados e geolocalização." />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://clima-agora.vercel.app/privacidade.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Privacidade – Clima Agora" />
+    <meta name="twitter:description" content="Política de privacidade e geolocalização." />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <link rel="canonical" href="https://clima-agora.vercel.app/privacidade.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="style.min.css?v=1.0.7" />
+  </head>
+  <body class="theme-auto">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    </svg>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="brand">
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-sun"/></svg>
+        <h1 class="brand-title">Clima Agora</h1>
+      </div>
+      <nav aria-label="Navegação principal">
+        <a class="secondary-btn" href="index.html">Início</a>
+        <a class="secondary-btn" href="previsao.html">Previsão</a>
+        <a class="secondary-btn" href="cidades.html">Cidades</a>
+        <a class="secondary-btn" href="como-funciona.html">Como funciona</a>
+        <a class="secondary-btn" href="instalar.html">Instalar</a>
+        <a class="secondary-btn" href="privacidade.html" aria-current="page">Privacidade</a>
+        <a class="secondary-btn" href="sobre.html">Sobre</a>
+      </nav>
+      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-moon"/></svg>
+      </button>
+    </header>
+
+    <main id="main" class="container" role="main">
+      <section class="glass" style="padding:16px">
+        <h1>Política de Privacidade</h1>
+        <p>
+          Levamos a privacidade a sério. O Clima Agora foi projetado para <strong>coletar o mínimo de dados</strong> necessário ao funcionamento do serviço. Esta política descreve que informações tratamos, como as usamos e quais escolhas você tem ao navegar e instalar o aplicativo.
+        </p>
+        <h2>Dados coletados</h2>
+        <p>
+          - <strong>Consultas de clima</strong>: quando você pesquisa por uma cidade, enviamos a consulta ao nosso <strong>proxy serverless</strong>, que repassa o pedido à OpenWeather. O proxy pode registrar informações de acesso de forma agregada (por exemplo, contagem de requisições) para métricas e mitigação de abuso.<br>
+          - <strong>Geolocalização</strong> (opcional): ao clicar em “Minha localização”, o navegador pedirá consentimento. Se você negar, nada é coletado. Se permitir, enviamos <em>lat/long</em> ao nosso proxy apenas para buscar a previsão.<br>
+          - <strong>Armazenamento local</strong>: guardamos no seu dispositivo as preferências (tema, unidade °C/°F) e o <em>histórico de cidades</em> para facilitar buscas futuras.
+        </p>
+        <h2>Como usamos os dados</h2>
+        <p>
+          Utilizamos as informações estritamente para <strong>fornecer o serviço</strong> de previsão do tempo e <strong>melhorar a experiência</strong> (ex.: lembrar sua última cidade). Não vendemos dados pessoais. O proxy serverless mantém a <strong>API key</strong> segura no servidor e pode aplicar <em>rate limiting</em> e caching para estabilidade.
+        </p>
+        <h2>Cookies</h2>
+        <p>
+          Não utilizamos cookies de rastreamento. O PWA pode usar <strong>cache</strong> no navegador para acelerar o carregamento e oferecer <em>offline</em> do shell.
+        </p>
+        <h2>Segurança</h2>
+        <p>
+          Adotamos <strong>Content Security Policy (CSP)</strong>, sanitização de conteúdo e boas práticas de PWA. Em deploys que suportam headers (como a Vercel), aplicamos HSTS e outros cabeçalhos para reduzir riscos. Ainda assim, nenhum sistema é 100% isento de riscos; mantenha seu navegador atualizado.
+        </p>
+        <h2>Contato</h2>
+        <p>
+          Para dúvidas ou solicitações relacionadas a privacidade, entre em contato com <strong>Ismael Nunes</strong> por meio do perfil público em <a href="https://ismaelly1984.github.io/" rel="noopener" target="_blank">https://ismaelly1984.github.io/</a>.
+        </p>
+        <p>
+          Veja também: <a href="como-funciona.html">Como funciona</a> e <a href="instalar.html">Instalar</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted)">
+      © 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a>
+    </footer>
+
+    <script src="script.min.js?v=1.0.5" defer></script>
+  </body>
+  </html>
+

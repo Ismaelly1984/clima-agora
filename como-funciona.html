@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Como Funciona – Clima Agora | Arquitetura, PWA e Segurança</title>
+    <meta name="description" content="Entenda a arquitetura do Clima Agora: SPA em HTML/CSS/JS, PWA com Service Worker, proxy serverless para esconder a API key, caching e segurança." />
+    <meta property="og:title" content="Como Funciona – Clima Agora" />
+    <meta property="og:description" content="Front-end leve, PWA robusto, proxy serverless e boas práticas de segurança." />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://clima-agora.vercel.app/como-funciona.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Como Funciona – Clima Agora" />
+    <meta name="twitter:description" content="Arquitetura, PWA e segurança do Clima Agora." />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <link rel="canonical" href="https://clima-agora.vercel.app/como-funciona.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="style.min.css?v=1.0.7" />
+  </head>
+  <body class="theme-auto">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    </svg>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="brand">
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-sun"/></svg>
+        <h1 class="brand-title">Clima Agora</h1>
+      </div>
+      <nav aria-label="Navegação principal">
+        <a class="secondary-btn" href="index.html">Início</a>
+        <a class="secondary-btn" href="previsao.html">Previsão</a>
+        <a class="secondary-btn" href="cidades.html">Cidades</a>
+        <a class="secondary-btn" href="como-funciona.html" aria-current="page">Como funciona</a>
+        <a class="secondary-btn" href="instalar.html">Instalar</a>
+        <a class="secondary-btn" href="privacidade.html">Privacidade</a>
+        <a class="secondary-btn" href="sobre.html">Sobre</a>
+      </nav>
+      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-moon"/></svg>
+      </button>
+    </header>
+
+    <main id="main" class="container" role="main">
+      <section class="glass" style="padding:16px">
+        <h1>Arquitetura do Clima Agora</h1>
+        <p>
+          O Clima Agora foi projetado para ser <strong>leve</strong>, <strong>seguro</strong> e <strong>rápido</strong>. Do lado do cliente, é uma <strong>SPA</strong> em HTML/CSS/JS puro, com design fluidamente responsivo e foco em acessibilidade. Do lado do servidor, utiliza <strong>funções serverless</strong> para atuar como <strong>proxy</strong> de chamadas à OpenWeather, mantendo a <strong>API key</strong> em <em>variáveis de ambiente</em>, fora do navegador. Além disso, o app é um <strong>PWA</strong>, com Service Worker para cache do shell, navegação com <em>preload</em> e fallback offline.
+        </p>
+        <h2>Front-end</h2>
+        <p>
+          A interface aplica <em>glassmorphism</em>, <em>scroll-snap</em> em carrosséis, <em>skeletons</em> para carregamento e um <strong>CSS crítico</strong> inline mínimo para reduzir o <em>Largest Contentful Paint</em>. A previsão de 3h e 5 dias é carregada em <em>idle</em>, ou seja, após o primeiro paint, diminuindo o <em>Total Blocking Time</em>. Fontes do sistema têm prioridade para o primeiro paint e Poppins entra como melhoria (<em>swap</em>), equilibrando identidade visual e performance.
+        </p>
+        <h2>PWA e Service Worker</h2>
+        <p>
+          O Service Worker realiza <strong>pré‑cache</strong> do shell (HTML/CSS/JS minificados), habilita <strong>navigation preload</strong> e implementa uma navegação <em>network-first</em> com <em>fallback offline</em>. Há um <strong>banner de atualização</strong> para aplicar novas versões (skipWaiting/controllerchange) e um botão “Instalar” controlado por <em>beforeinstallprompt</em>, de acordo com as melhores práticas de UX.
+        </p>
+        <h2>Proxy serverless e segurança</h2>
+        <p>
+          As rotas <code>/api/weather</code> e <code>/api/forecast</code> executam no servidor e leem <code>OPENWEATHER_API_KEY</code> via <strong>variáveis de ambiente</strong>. O front‑end nunca expõe a chave. A interface é protegida por <strong>CSP</strong>, <strong>sanitização</strong> ao renderizar histórico e cards, e uso de <strong>headers</strong> no deploy (HSTS, X-Content-Type-Options, etc.). Assim reduzimos a superfície de ataque contra XSS e afins.
+        </p>
+        <h2>Caching e performance</h2>
+        <p>
+          O proxy usa cabeçalhos de cache (<code>s-maxage</code> e <code>stale-while-revalidate</code>) para melhorar a latência em borda/CDN. Imagens de fundo são convertidas para <strong>WebP</strong> e limitadas em tamanho; ícones meteorológicos são carregados de forma eficiente; e o CSS/JS é <strong>minificado</strong> com <em>cache busting</em>. O resultado é uma experiência muito próxima de <strong>100/100</strong> no Lighthouse.
+        </p>
+        <p>Para saber como interpretar a previsão, veja <a href="previsao.html">Previsão</a>. Para instalar o app, veja <a href="instalar.html">Instalar</a>.</p>
+      </section>
+    </main>
+
+    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted)">
+      © 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a>
+    </footer>
+
+    <script src="script.min.js?v=1.0.5" defer></script>
+  </body>
+  </html>
+

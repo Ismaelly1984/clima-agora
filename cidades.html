@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cidades – Clima Agora | Buscas Rápidas</title>
+    <meta name="description" content="Cidades populares para consultar rapidamente o clima no Clima Agora: São Paulo, Rio de Janeiro, Lisboa, Nova York e muito mais." />
+    <meta property="og:title" content="Cidades – Clima Agora" />
+    <meta property="og:description" content="Acesse o clima de cidades populares com um clique." />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://clima-agora.vercel.app/cidades.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cidades – Clima Agora" />
+    <meta name="twitter:description" content="Cidades populares para busca instantânea de clima." />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <link rel="canonical" href="https://clima-agora.vercel.app/cidades.html" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="style.min.css?v=1.0.7" />
+  </head>
+  <body class="theme-auto">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    </svg>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="brand">
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sun"/></svg>
+        <h1 class="brand-title">Clima Agora</h1>
+      </div>
+      <nav aria-label="Navegação principal">
+        <a class="secondary-btn" href="index.html">Início</a>
+        <a class="secondary-btn" href="previsao.html">Previsão</a>
+        <a class="secondary-btn" href="cidades.html" aria-current="page">Cidades</a>
+        <a class="secondary-btn" href="como-funciona.html">Como funciona</a>
+        <a class="secondary-btn" href="instalar.html">Instalar</a>
+        <a class="secondary-btn" href="privacidade.html">Privacidade</a>
+        <a class="secondary-btn" href="sobre.html">Sobre</a>
+      </nav>
+      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"/></svg>
+      </button>
+    </header>
+
+    <main id="main" class="container" role="main">
+      <section class="glass" style="padding:16px">
+        <h1>Cidades populares para consulta de clima</h1>
+        <p>
+          Abaixo você encontra uma lista de cidades populares no Brasil e no mundo para abrir rapidamente a previsão no Clima Agora. Clique em qualquer botão para ir à página inicial com a busca preenchida e a previsão exibida. Essa lista é apenas um ponto de partida: você pode pesquisar qualquer cidade — brasileira ou internacional — usando a caixa de busca.
+        </p>
+        <h2>Cidades do Brasil</h2>
+        <p>
+          São Paulo, Rio de Janeiro, Belo Horizonte, Brasília, Salvador, Fortaleza, Recife, Curitiba, Porto Alegre, Manaus, Belém, Goiânia, Florianópolis, Vitória, Campinas.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <a class="chip" href="index.html#q=São%20Paulo" title="São Paulo">São Paulo</a>
+          <a class="chip" href="index.html#q=Rio%20de%20Janeiro" title="Rio de Janeiro">Rio de Janeiro</a>
+          <a class="chip" href="index.html#q=Belo%20Horizonte" title="Belo Horizonte">Belo Horizonte</a>
+          <a class="chip" href="index.html#q=Brasília" title="Brasília">Brasília</a>
+          <a class="chip" href="index.html#q=Salvador" title="Salvador">Salvador</a>
+          <a class="chip" href="index.html#q=Fortaleza" title="Fortaleza">Fortaleza</a>
+          <a class="chip" href="index.html#q=Curitiba" title="Curitiba">Curitiba</a>
+          <a class="chip" href="index.html#q=Porto%20Alegre" title="Porto Alegre">Porto Alegre</a>
+          <a class="chip" href="index.html#q=Recife" title="Recife">Recife</a>
+          <a class="chip" href="index.html#q=Manaus" title="Manaus">Manaus</a>
+          <a class="chip" href="index.html#q=Belém" title="Belém">Belém</a>
+          <a class="chip" href="index.html#q=Goiânia" title="Goiânia">Goiânia</a>
+          <a class="chip" href="index.html#q=Florianópolis" title="Florianópolis">Florianópolis</a>
+          <a class="chip" href="index.html#q=Vitória" title="Vitória">Vitória</a>
+          <a class="chip" href="index.html#q=Campinas" title="Campinas">Campinas</a>
+        </div>
+        <h2>Internacionais</h2>
+        <p>Lisboa (Portugal), Porto (Portugal), Nova York (EUA), Los Angeles (EUA), Londres (Reino Unido), Paris (França), Tóquio (Japão), Sydney (Austrália), Toronto (Canadá), Buenos Aires (Argentina).</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <a class="chip" href="index.html#q=Lisboa" title="Lisboa">Lisboa</a>
+          <a class="chip" href="index.html#q=Porto" title="Porto">Porto</a>
+          <a class="chip" href="index.html#q=New%20York" title="Nova York">Nova York</a>
+          <a class="chip" href="index.html#q=Los%20Angeles" title="Los Angeles">Los Angeles</a>
+          <a class="chip" href="index.html#q=London" title="Londres">Londres</a>
+          <a class="chip" href="index.html#q=Paris" title="Paris">Paris</a>
+          <a class="chip" href="index.html#q=Tokyo" title="Tóquio">Tóquio</a>
+          <a class="chip" href="index.html#q=Sydney" title="Sydney">Sydney</a>
+          <a class="chip" href="index.html#q=Toronto" title="Toronto">Toronto</a>
+          <a class="chip" href="index.html#q=Buenos%20Aires" title="Buenos Aires">Buenos Aires</a>
+        </div>
+        <p>
+          Dica: você também pode usar <a href="previsao.html">a previsão detalhada de 3 horas</a> para planejar compromissos no <strong>mesmo dia</strong>, e a <a href="previsao.html">previsão de 5 dias</a> para acompanhar a <strong>tendência do clima</strong>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted)">
+      © 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a>
+    </footer>
+
+    <script src="script.min.js?v=1.0.5" defer></script>
+  </body>
+  </html>
+
