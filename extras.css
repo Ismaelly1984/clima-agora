@@ -30,3 +30,38 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
 @media (max-width: 900px){
   .home-actions, footer .install-cta { display: none !important; }
 }
+
+/* ---------- Responsividade adicional ---------- */
+/* Telas grandes: ampliar largura útil */
+@media (min-width: 1200px){
+  .site-header{max-width: 1200px}
+  .container{max-width: 1200px}
+}
+
+/* Tablets (600–900px): compactar paddings e tipografia */
+@media (max-width: 900px) and (min-width: 600px){
+  .site-header{padding:16px 14px}
+  .container{padding:12px 14px 40px}
+  .weather-card{padding:16px}
+}
+
+/* Mobile <= 480px: reduzir espaçamentos e ícones maiores/menores conforme contexto */
+@media (max-width: 480px){
+  .site-header{padding:12px 10px}
+  .brand-title{font-size:16px}
+  .container{padding:10px 12px 36px}
+  .primary-btn,.secondary-btn,.toggle-btn{padding:10px 12px;font-size:14px;min-height:44px}
+  input#cityInput{padding:10px 12px}
+  .weather-icon{width:72px;height:72px}
+  .temperature{font-size:24px}
+  .forecast-card{min-height:108px}
+  .today-row{grid-auto-columns:minmax(120px,1fr)}
+  .forecast-row{grid-auto-columns:minmax(110px,1fr)}
+}
+
+/* Mobile muito estreito <= 360px: ajustes finos de largura */
+@media (max-width: 360px){
+  .forecast-row{grid-auto-columns:minmax(100px,1fr)}
+  .today-row{grid-auto-columns:minmax(110px,1fr)}
+  .description{font-size:16px}
+}
