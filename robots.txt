@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
-Sitemap: https://ismaelly1984.github.io/ClimaAgora/sitemap.xml
 
+# Bloquear APIs e arquivos técnicos
+Disallow: /api/
+Disallow: /service-worker.js
+Disallow: /manifest.webmanifest
+Disallow: /vercel.json
+Disallow: /assets/icons/sprite.svg
+
+# Sitemap atualizado
+Sitemap: https://clima-agora.vercel.app/sitemap.xml

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Clima Agora – Previsão do Tempo em Tempo Real</title>
+    <title>Clima Agora | Previsão do Tempo em Tempo Real</title>
 
     <!-- Descrição e Open Graph -->
     <meta
@@ -14,49 +14,29 @@
     <meta name="keywords" content="previsão do tempo, clima em tempo real, temperatura, umidade, vento, cidades brasileiras, clima agora" />
     <meta property="og:title" content="Clima Agora" />
     <meta property="og:description" content="Veja a previsão do tempo em tempo real." />
-    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:image" content="https://clima-agora.vercel.app/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://clima-agora.vercel.app/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Clima Agora – Previsão em Tempo Real" />
     <meta name="twitter:description" content="Acompanhe a previsão do tempo ao vivo para qualquer cidade." />
-    <meta name="twitter:image" content="assets/og-image.png" />
+    <meta name="twitter:image" content="https://clima-agora.vercel.app/assets/og-image.png" />
+    <meta property="og:image:alt" content="Clima Agora • Previsão do tempo ao vivo" />
+    <meta name="twitter:image:alt" content="Clima Agora • Previsão do tempo ao vivo" />
     <link rel="canonical" href="https://clima-agora.vercel.app/" />
     <meta name="theme-color" content="#0f172a" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; img-src 'self' data: https://openweathermap.org https://openweathermap.org/img/wn; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; base-uri 'self'; upgrade-insecure-requests">
-    <!-- CSS crítico inline para primeiro paint -->
-    <style>
-      html,body{height:100%}
-      body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Noto Sans',Arial,'Apple Color Emoji','Segoe UI Emoji','Poppins';color:#e5e7eb;background:linear-gradient(135deg,#0f172a,#1e293b);background-attachment:fixed}
-      .site-header{max-width:1100px;margin:0 auto;padding:20px 16px;display:flex;align-items:center;justify-content:space-between}
-      .brand{display:flex;align-items:center;gap:10px}
-      .brand-icon{color:#3b82f6}
-      .brand-title{margin:0;font-weight:600}
-      .container{max-width:1100px;margin:0 auto;padding:12px 16px 24px;position:relative}
-      .glass{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:16px}
-      .search-card{padding:12px}
-      .search-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center}
-      input#cityInput{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#e5e7eb}
-      .primary-btn,.secondary-btn,.toggle-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px}
-      .primary-btn{background:#3b82f6;color:#fff}
-      .secondary-btn{background:transparent;color:inherit;border:1px solid rgba(255,255,255,0.15)}
-      .overlay{position:fixed;inset:0;pointer-events:none}
-      .status{margin:12px 2px 2px;font-size:14px;color:#e2e8f0}
-      .weather-card{padding:16px}
-      .weather-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-      .place .city{margin:0;font-weight:600}
-      .place .country{margin:0;font-size:14px;color:#e2e8f0}
-      .weather-icon{width:96px;height:96px}
-      .weather-main{margin-top:8px}
-      .description{margin:0;font-size:18px;text-transform:capitalize}
-      .temperature{margin:0;display:inline-flex;align-items:center;gap:8px;font-weight:600}
-      .weather-extra{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-      .metric{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06)}
-      .metric .label{display:block;font-size:12px;color:#e2e8f0}
-      .metric .value{display:block;font-size:16px;font-weight:500}
-      .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(0,0,0,.6);color:#fff;padding:10px 14px;border-radius:12px;opacity:0}
-      @media(max-width:900px){.search-row{grid-template-columns:1fr}}
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="style.min.css?v=1.0.7" />
+    <link rel="stylesheet" href="extras.css?v=1.0.0" />
+    
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -66,8 +46,8 @@
         "applicationSubCategory": "Previsão meteorológica e condições climáticas",
         "operatingSystem": "Android, iOS, Web",
         "description": "Veja a previsão do tempo em tempo real para qualquer cidade. Clima Agora mostra temperatura, umidade e condições atuais de forma simples e elegante.",
-        "url": "https://ismaelly1984.github.io/ClimaAgora/",
-        "screenshot": "https://ismaelly1984.github.io/ClimaAgora/assets/og-image.png",
+        "url": "https://clima-agora.vercel.app/",
+        "screenshot": "https://clima-agora.vercel.app/assets/og-image.png",
         "creator": {
           "@type": "Person",
           "name": "Ismael Nunes",
@@ -85,10 +65,22 @@
         },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://ismaelly1984.github.io/ClimaAgora/?q={city}",
+          "target": "https://clima-agora.vercel.app/?q={city}",
           "query-input": "required name=city"
         },
         "inLanguage": "pt-BR"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Clima Agora",
+        "url": "https://clima-agora.vercel.app/",
+        "logo": "https://clima-agora.vercel.app/assets/icons/favicon.svg",
+        "sameAs": [
+          "https://ismaelly1984.github.io/"
+        ]
       }
     </script>
     <meta name="mobile-web-app-capable" content="yes" />
@@ -119,63 +111,6 @@
   <body class="theme-auto">
     <a href="#main" class="skip-link">Pular para o conteúdo</a>
     <!-- Sprite de ícones (inline, reutilizável) -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-      <symbol id="i-sun" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
-        <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </symbol>
-      <symbol id="i-moon" viewBox="0 0 24 24">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </symbol>
-      <symbol id="i-map-pin" viewBox="0 0 24 24">
-        <path d="M12 21s-6-5.33-6-10a6 6 0 1 1 12 0c0 4.67-6 10-6 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="12" cy="11" r="2" fill="none" stroke="currentColor" stroke-width="2"/>
-      </symbol>
-      <symbol id="i-search" viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/>
-        <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </symbol>
-      <symbol id="i-crosshair" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-        <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </symbol>
-      <symbol id="i-thermometer" viewBox="0 0 24 24">
-        <path d="M14 14.76V5a2 2 0 1 0-4 0v9.76a4 4 0 1 0 4 0z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </symbol>
-      <symbol id="i-droplets" viewBox="0 0 24 24">
-        <path d="M12 2C9 6 8 7.5 8 10a4 4 0 0 0 8 0c0-2.5-1-4-4-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </symbol>
-      <symbol id="i-wind" viewBox="0 0 24 24">
-        <path d="M3 12h12a3 3 0 1 0-3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M2 19h10a2 2 0 1 0-2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </symbol>
-      <symbol id="i-umbrella" viewBox="0 0 24 24">
-        <path d="M12 2a10 10 0 0 0-10 10h20A10 10 0 0 0 12 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M12 12v6a2 2 0 1 0 4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </symbol>
-      <symbol id="i-cloud-rain" viewBox="0 0 24 24">
-        <path d="M20 16.58A5 5 0 0 0 18 7a7 7 0 0 0-13.33 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M16 16H7a4 4 0 1 1 2-7.45" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="8" y1="19" x2="8" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="12" y1="19" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <line x1="16" y1="19" x2="16" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </symbol>
-      <symbol id="i-download" viewBox="0 0 24 24">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <polyline points="7 10 12 15 17 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </symbol>
-    </svg>
     <div class="overlay" aria-hidden="true"></div>
     <noscript>
       Habilite o JavaScript para usar o Clima Agora.
@@ -183,7 +118,7 @@
 
     <header class="site-header">
       <div class="brand">
-        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-sun"/></svg>
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-sun"/></svg>
         <h1 class="brand-title">Clima Agora</h1>
       </div>
       <nav aria-label="Navegação principal">
@@ -194,13 +129,13 @@
         <a class="secondary-btn" href="instalar.html">Instalar</a>
         <a class="secondary-btn" href="privacidade.html">Privacidade</a>
         <a class="secondary-btn" href="sobre.html">Sobre</a>
+        <button id="themeToggle" class="secondary-btn" type="button" aria-label="Alternar tema">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-moon"/></svg>
+          <span>Tema</span>
+        </button>
       </nav>
-      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
-        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-moon"/></svg>
-      </button>
-      <button id="installBtn" class="icon-btn hidden" aria-label="Instalar aplicativo">
-        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-download"/></svg>
-        <span>Instalar</span>
+      <button id="menuToggle" class="icon-btn" aria-label="Abrir menu" aria-expanded="false">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </header>
 
@@ -208,10 +143,16 @@
       <p class="intro">
         O Clima Agora oferece previsões atualizadas de temperatura, umidade e vento para qualquer cidade do Brasil e do mundo — em tempo real, com design moderno e fácil de usar.
       </p>
+      <div class="home-actions">
+        <button class="install-cta hidden" type="button" data-install aria-label="Instalar aplicativo">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-download"/></svg>
+          <span>Instalar app</span>
+        </button>
+      </div>
       <section class="search-card glass" role="search">
         <div class="search-row">
           <label class="sr-only" for="cityInput">Pesquisar cidade</label>
-          <svg class="field-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-map-pin"/></svg>
+          <svg class="field-icon" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-map-pin"/></svg>
           <input
             id="cityInput"
             type="text"
@@ -220,11 +161,11 @@
             inputmode="search"
           />
           <button id="searchBtn" class="primary-btn" aria-label="Buscar">
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"/></svg>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-search"/></svg>
             <span>Buscar</span>
           </button>
           <button id="geoBtn" class="secondary-btn" aria-label="Usar minha localização">
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-crosshair"/></svg>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-crosshair"/></svg>
             <span>Minha localização</span>
           </button>
           <button id="unitToggle" class="toggle-btn" aria-label="Alternar unidade">
@@ -247,21 +188,21 @@
         <div class="weather-main">
           <p id="description" class="description">—</p>
           <p class="temperature">
-            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-thermometer"/></svg>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-thermometer"/></svg>
             <span id="temp">—</span>
           </p>
         </div>
 
         <div class="weather-extra">
           <div class="metric">
-            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-droplets"/></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-droplets"/></svg>
             <div>
               <span class="label">Umidade</span>
               <span id="humidity" class="value">—</span>
             </div>
           </div>
           <div class="metric">
-            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wind"/></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-wind"/></svg>
             <div>
               <span class="label">Vento</span>
               <span id="wind" class="value">—</span>
@@ -272,9 +213,33 @@
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="navBackdrop" class="nav-backdrop"></div>
+    <aside id="mobileNav" class="mobile-nav hidden" aria-hidden="true">
+      <nav aria-label="Menu móvel">
+        <a class="secondary-btn" href="index.html">Início</a>
+        <a class="secondary-btn" href="previsao.html">Previsão</a>
+        <a class="secondary-btn" href="cidades.html">Cidades</a>
+        <a class="secondary-btn" href="como-funciona.html">Como funciona</a>
+        <a class="secondary-btn" href="instalar.html">Instalar</a>
+        <a class="secondary-btn" href="privacidade.html">Privacidade</a>
+        <a class="secondary-btn" href="sobre.html">Sobre</a>
+        <button class="secondary-btn" type="button" data-theme-toggle aria-label="Alternar tema">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-moon"/></svg>
+          <span>Alternar tema</span>
+        </button>
+        <button class="secondary-btn hidden" type="button" data-install aria-label="Instalar aplicativo">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-download"/></svg>
+          <span>Instalar app</span>
+        </button>
+      </nav>
+    </aside>
+
+    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted);display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <span>© 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a></span>
+    </footer>
 
     <!-- Script principal -->
-    <script src="script.min.js?v=1.0.5" defer></script>
+    <script src="script.js?v=1.0.9" defer></script>
     
     
     <div id="updateBanner" class="update-banner hidden" role="status" aria-live="polite">

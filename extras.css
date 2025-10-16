@@ -1,0 +1,32 @@
+/* Additional responsive + mobile drawer styles */
+#menuToggle{display:none}
+.site-header nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;flex:1 1 auto}
+.nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(2px);z-index:98;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.nav-backdrop.show{opacity:1;pointer-events:auto}
+.mobile-nav{position:fixed;top:0;left:0;bottom:0;width:min(86vw,320px);background:var(--glass-bg);border-right:1px solid var(--glass-border);box-shadow:var(--shadow);z-index:99;transform:translateX(-100%);transition:transform .22s ease;padding:16px;backdrop-filter:blur(10px)}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav nav{display:flex;flex-direction:column;gap:8px}
+@media (max-width: 900px){.site-header nav{display:none}#menuToggle{display:inline-flex}}
+
+/* CTA de instalar (discreto) */
+.home-actions{margin:4px 2px 10px}
+.install-cta{display:inline-flex;align-items:center;gap:6px;background:transparent;border:none;color:var(--text-muted);font-size:14px;padding:4px 0;cursor:pointer}
+.install-cta svg{width:18px;height:18px;opacity:.9}
+.install-cta:hover{color:var(--text)}
+.install-cta:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;border-radius:6px}
+
+/* Consistência de links (texto), sem afetar botões de navegação */
+main a:not(.secondary-btn):not(.chip){
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(59,130,246,.5);
+}
+main a:not(.secondary-btn):not(.chip):hover{ text-decoration-color: var(--color-primary); }
+footer a{ color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: rgba(59,130,246,.45); }
+footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text); }
+
+/* Mobile: botão instalar apenas no menu lateral */
+@media (max-width: 900px){
+  .home-actions, footer .install-cta { display: none !important; }
+}

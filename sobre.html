@@ -4,18 +4,26 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sobre – Clima Agora | Projeto e Autor</title>
+    <title>Sobre | Clima Agora</title>
     <meta name="description" content="Saiba mais sobre o Clima Agora e o desenvolvedor Ismael Nunes: metas do projeto, tecnologia usada, PWA e foco em acessibilidade." />
     <meta property="og:title" content="Sobre – Clima Agora" />
     <meta property="og:description" content="Conheça o projeto, a tecnologia e o autor, Ismael Nunes." />
-    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:image" content="https://clima-agora.vercel.app/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://clima-agora.vercel.app/sobre.html" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sobre – Clima Agora" />
     <meta name="twitter:description" content="Projeto Clima Agora e autor." />
-    <meta name="twitter:image" content="assets/og-image.png" />
+    <meta name="twitter:image" content="https://clima-agora.vercel.app/assets/og-image.png" />
+    <meta property="og:image:alt" content="Sobre • Clima Agora" />
+    <meta name="twitter:image:alt" content="Sobre • Clima Agora" />
     <link rel="canonical" href="https://clima-agora.vercel.app/sobre.html" />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta property="og:site_name" content="Clima Agora" />
+    <meta property="og:locale" content="pt_BR" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,18 +32,34 @@
     <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
     <link rel="stylesheet" href="style.min.css?v=1.0.7" />
+    <link rel="stylesheet" href="extras.css?v=1.0.0" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "Sobre – Clima Agora",
+        "url": "https://clima-agora.vercel.app/sobre.html",
+        "description": "Sobre o projeto Clima Agora e o autor, Ismael Nunes."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Início", "item": "https://clima-agora.vercel.app/"},
+          {"@type": "ListItem", "position": 2, "name": "Sobre", "item": "https://clima-agora.vercel.app/sobre.html"}
+        ]
+      }
+    </script>
   </head>
   <body class="theme-auto">
     <a href="#main" class="skip-link">Pular para o conteúdo</a>
-    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-    </svg>
     <div class="overlay" aria-hidden="true"></div>
 
     <header class="site-header">
       <div class="brand">
-        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-sun"/></svg>
+        <svg class="brand-icon" aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="assets/icons/sprite.svg#i-sun"/></svg>
         <h1 class="brand-title">Clima Agora</h1>
       </div>
       <nav aria-label="Navegação principal">
@@ -46,10 +70,15 @@
         <a class="secondary-btn" href="instalar.html">Instalar</a>
         <a class="secondary-btn" href="privacidade.html">Privacidade</a>
         <a class="secondary-btn" href="sobre.html" aria-current="page">Sobre</a>
+        <button id="themeToggle" class="secondary-btn" type="button" aria-label="Alternar tema">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-moon"/></svg>
+          <span>Tema</span>
+        </button>
       </nav>
-      <button id="themeToggle" class="icon-btn" aria-label="Alternar tema">
-        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-moon"/></svg>
+      <button id="menuToggle" class="icon-btn" aria-label="Abrir menu" aria-expanded="false">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
+      
     </header>
 
     <main id="main" class="container" role="main">
@@ -72,11 +101,35 @@
       </section>
     </main>
 
-    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted)">
-      © 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a>
+    <footer class="container" style="padding:12px 16px 36px;color:var(--text-muted);display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <span>© 2025 Clima Agora · Desenvolvido por Ismael Nunes · <a href="privacidade.html">Privacidade</a></span>
+      <button class="install-cta hidden" type="button" data-install aria-label="Instalar aplicativo">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-download"/></svg>
+        <span>Instalar app</span>
+      </button>
     </footer>
 
-    <script src="script.min.js?v=1.0.5" defer></script>
+    <div id="navBackdrop" class="nav-backdrop"></div>
+    <aside id="mobileNav" class="mobile-nav hidden" aria-hidden="true">
+      <nav aria-label="Menu móvel">
+        <a class="secondary-btn" href="index.html">Início</a>
+        <a class="secondary-btn" href="previsao.html">Previsão</a>
+        <a class="secondary-btn" href="cidades.html">Cidades</a>
+        <a class="secondary-btn" href="como-funciona.html">Como funciona</a>
+        <a class="secondary-btn" href="instalar.html">Instalar</a>
+        <a class="secondary-btn" href="privacidade.html">Privacidade</a>
+        <a class="secondary-btn" href="sobre.html" aria-current="page">Sobre</a>
+        <button class="secondary-btn" type="button" data-theme-toggle aria-label="Alternar tema">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-moon"/></svg>
+          <span>Alternar tema</span>
+        </button>
+        <button class="secondary-btn hidden" type="button" data-install aria-label="Instalar aplicativo">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="assets/icons/sprite.svg#i-download"/></svg>
+          <span>Instalar app</span>
+        </button>
+      </nav>
+    </aside>
+
+    <script src="script.js?v=1.0.9" defer></script>
   </body>
   </html>
-

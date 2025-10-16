@@ -105,7 +105,11 @@ function updateThemeToggleIcon(mode) {
   } else if (mode === "light") {
     icon = "moon"; // no claro, oferecer lua (trocar p/ escuro)
   }
-  el.themeToggle.innerHTML = svgIcon(icon);
+  if (el.themeToggle) el.themeToggle.innerHTML = `${svgIcon(icon)}<span style="margin-left:8px">Tema</span>`;
+  // Atualiza cópias no menu móvel (sem ID)
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+    btn.innerHTML = `${svgIcon(icon)}<span style="margin-left:8px">Alternar tema</span>`;
+  });
 }
 
 function cycleTheme() {
@@ -114,9 +118,9 @@ function cycleTheme() {
   setTheme(next);
 }
 
-// Retorna SVG inline usando o sprite (icons definidos em index.html)
+// Retorna SVG inline usando o sprite externo
 function svgIcon(name, size = 20, extraClass = "") {
-  return `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${extraClass}"><use href="#i-${name}"/></svg>`;
+  return `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${extraClass}"><use href="assets/icons/sprite.svg#i-${name}"/></svg>`;
 }
 
 // Unidades: metric (°C, m/s) → exibimos km/h; imperial (°F, mph)
@@ -345,13 +349,14 @@ function removeAllBgClasses() {
 function setBackgroundByWeather(main, iconCode) {
   removeAllBgClasses();
   const m = (main || "").toLowerCase();
-  if (m.includes("thunder")) return el.body.classList.add("bg-thunder");
-  if (m.includes("drizzle") || m.includes("rain")) return el.body.classList.add("bg-rain");
-  if (m.includes("snow")) return el.body.classList.add("bg-snow");
-  if (m.includes("mist") || m.includes("fog") || m.includes("haze") || m.includes("smoke")) return el.body.classList.add("bg-mist");
-  if (m.includes("cloud")) return el.body.classList.add("bg-clouds");
-  // Clear
-  el.body.classList.add("bg-clear");
+  let key = 'clear';
+  if (m.includes("thunder")) { el.body.classList.add("bg-thunder"); key = 'thunderstorm'; }
+  else if (m.includes("drizzle") || m.includes("rain")) { el.body.classList.add("bg-rain"); key = 'rain'; }
+  else if (m.includes("snow")) { el.body.classList.add("bg-snow"); key = 'snow'; }
+  else if (m.includes("mist") || m.includes("fog") || m.includes("haze") || m.includes("smoke")) { el.body.classList.add("bg-mist"); key = 'mist'; }
+  else if (m.includes("cloud")) { el.body.classList.add("bg-clouds"); key = 'clouds'; }
+  else { el.body.classList.add("bg-clear"); key = 'clear'; }
+  try { localStorage.setItem('lastBgKey', key); } catch {}
 }
 
 // Fundo dinâmico por imagem (assets/bg/<condicao>.jpg)
@@ -367,6 +372,11 @@ function getBgKey(main) {
 
 async function setDynamicBackgroundImage(main) {
   const key = getBgKey(main);
+  return setDynamicBackgroundByKey(key);
+}
+
+// Aplica imagem de fundo por chave (clear, clouds, rain, snow, mist, thunderstorm)
+async function setDynamicBackgroundByKey(key) {
   const candidates = [
     `assets/bg/${key}.webp`,
     `assets/bg/${key}.png`,
@@ -399,6 +409,19 @@ async function setDynamicBackgroundImage(main) {
   } else {
     document.body.style.backgroundImage = '';
   }
+  try { localStorage.setItem('lastBgKey', key); } catch {}
+}
+
+// Reaplica o último fundo salvo (entre páginas)
+function applyLastBackgroundFromStorage() {
+  let key = null;
+  try { key = localStorage.getItem('lastBgKey'); } catch {}
+  if (!key) return;
+  removeAllBgClasses();
+  const cls = key === 'thunderstorm' ? 'bg-thunder' : `bg-${key}`;
+  el.body.classList.add(cls);
+  // tenta aplicar a imagem correspondente (tolerante a ausência)
+  setDynamicBackgroundByKey(key);
 }
 
 // Frases dinamicas de clima
@@ -871,9 +894,34 @@ function wireEvents() {
 
   // Tema
   if (el.themeToggle) el.themeToggle.addEventListener("click", cycleTheme);
+  // Também no menu móvel
+  document.querySelectorAll('[data-theme-toggle]').forEach(btn => btn.addEventListener('click', cycleTheme));
   if (el.unitToggle) {
     el.unitToggle.addEventListener('click', toggleUnits);
   }
+  // Menu móvel (drawer)
+  const menuBtn = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  const navBackdrop = document.getElementById('navBackdrop');
+  function openMenu() {
+    if (!mobileNav || !menuBtn || !navBackdrop) return;
+    mobileNav.classList.remove('hidden');
+    requestAnimationFrame(() => mobileNav.classList.add('open'));
+    navBackdrop.classList.add('show');
+    menuBtn.setAttribute('aria-expanded','true');
+  }
+  function closeMenu() {
+    if (!mobileNav || !menuBtn || !navBackdrop) return;
+    mobileNav.classList.remove('open');
+    navBackdrop.classList.remove('show');
+    menuBtn.setAttribute('aria-expanded','false');
+    setTimeout(() => mobileNav.classList.add('hidden'), 220);
+  }
+  if (menuBtn) menuBtn.addEventListener('click', () => {
+    (mobileNav && mobileNav.classList.contains('open')) ? closeMenu() : openMenu();
+  });
+  if (navBackdrop) navBackdrop.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
   // PWA install prompt
   let deferredPrompt;
@@ -881,18 +929,28 @@ function wireEvents() {
     e.preventDefault();
     deferredPrompt = e;
     if (el.installBtn) el.installBtn.classList.remove('hidden');
+    updateInstallButtonLabels();
+    document.querySelectorAll('[data-install]').forEach(btn => btn.classList.remove('hidden'));
   });
-  if (el.installBtn) {
-    el.installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      try { await deferredPrompt.userChoice; } catch {}
-      deferredPrompt = null;
-      el.installBtn.classList.add('hidden');
-    });
-  }
+  const isIOS = () => /iphone|ipad|ipod/.test((navigator.userAgent||'').toLowerCase());
+  const handleInstallClick = async () => {
+    // iOS não possui beforeinstallprompt; encaminha para instruções
+    if (!deferredPrompt) {
+      if (isIOS()) { try { window.location.href = 'instalar.html#ios'; } catch { window.location.href = 'instalar.html'; } return; }
+      try { showToast('Instalação não disponível neste navegador.', 'info', 2600); } catch {}
+      return;
+    }
+    deferredPrompt.prompt();
+    try { await deferredPrompt.userChoice; } catch {}
+    deferredPrompt = null;
+    if (el.installBtn) el.installBtn.classList.add('hidden');
+    document.querySelectorAll('[data-install]').forEach(btn => btn.classList.add('hidden'));
+  };
+  if (el.installBtn) el.installBtn.addEventListener('click', handleInstallClick);
+  document.querySelectorAll('[data-install]').forEach(btn => btn.addEventListener('click', handleInstallClick));
   window.addEventListener('appinstalled', () => {
     if (el.installBtn) el.installBtn.classList.add('hidden');
+    document.querySelectorAll('[data-install]').forEach(btn => btn.classList.add('hidden'));
   });
 
   // Online/Offline
@@ -903,6 +961,35 @@ function wireEvents() {
 function initTheme() {
   const pref = localStorage.getItem("themePref") || "auto";
   setTheme(pref);
+  // Sincroniza o fundo com a última cidade consultada (todas as páginas)
+  applyLastBackgroundFromStorage();
+}
+
+// Ajusta rótulo do botão de instalar conforme plataforma (mobile/desktop)
+function updateInstallButtonLabels() {
+  try {
+    const ua = (navigator.userAgent || '').toLowerCase();
+    const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isAndroid = /android/.test(ua);
+    const isMobile = isIOS || isAndroid || /windows phone|mobile/.test(ua);
+    const labelText = isIOS ? 'Adicionar à Tela de Início' : (isMobile ? 'Adicionar à tela inicial' : 'Instalar app');
+    const ariaText = isIOS ? 'Adicionar à Tela de Início' : (isMobile ? 'Adicionar à tela inicial' : 'Instalar aplicativo');
+    // Atualiza botões discretos (data-install) e o antigo #installBtn, se existir
+    const all = [
+      ...document.querySelectorAll('[data-install]'),
+      ...Array.from(document.querySelectorAll('#installBtn')),
+    ];
+    all.forEach((btn) => {
+      const span = btn.querySelector('span');
+      if (span) span.textContent = labelText;
+      btn.setAttribute('aria-label', ariaText);
+      btn.title = labelText;
+    });
+    // Em iOS, exibe a ação no menu/rodapé (leva para instruções)
+    if (isIOS) {
+      document.querySelectorAll('[data-install]').forEach(btn => btn.classList.remove('hidden'));
+    }
+  } catch {}
 }
 
 function initApp() {
@@ -910,6 +997,7 @@ function initApp() {
   setupDynamicSections();
   renderHistory();
   updateUnitToggleUI();
+  updateInstallButtonLabels();
   wireEvents();
   // Registro do Service Worker (sem inline script, compatível com CSP)
   if ('serviceWorker' in navigator) {
