@@ -39,6 +39,16 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
 .today-row{grid-auto-columns:minmax(120px,1fr)}
 .forecast-card .f-icon{width:48px;height:48px}
 .today-card .f-icon{width:44px;height:44px}
+/* Suaviza rolagem horizontal e evita bounce de página */
+.forecast-row,.today-row{scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+
+/* Garante que os cards não "cortem" nas laterais em telas pequenas */
+@media (max-width: 480px){
+  .glass{max-width:100%}
+  .forecast-section,.today-section,.search-card,.weather-card{overflow:hidden}
+  .forecast-row,.today-row{padding-inline:10px}
+  .forecast-card,.today-card{min-width:0}
+}
 /* Telas grandes: ampliar largura útil */
 @media (min-width: 1200px){
   .site-header{max-width: 1200px}
@@ -69,7 +79,7 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   #menuToggle.icon-btn{min-height:44px}
   /* Reorganiza a barra de busca: input + buscar lado a lado */
   .search-row{
-    grid-template-columns: 1fr auto !important;
+    grid-template-columns: minmax(0,1fr) auto !important;
     grid-template-areas:
       "input search"
       "geo   geo"
@@ -78,10 +88,10 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
     align-items: stretch;
     gap: 8px;
   }
-  #cityInput{grid-area: input}
-  #searchBtn{grid-area: search; white-space: nowrap}
-  #geoBtn{grid-area: geo}
-  #unitToggle{grid-area: unit; justify-self:end}
+  #cityInput{grid-area: input;width:100%;min-width:0}
+  #searchBtn{grid-area: search;white-space:nowrap;min-width:44px;max-width:40vw}
+  #geoBtn{grid-area: geo;width:100%}
+  #unitToggle{grid-area: unit;justify-self:end;width:auto}
 }
 
 /* Mobile muito estreito <= 360px: ajustes finos de largura */
@@ -93,7 +103,7 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .forecast-pop,.forecast-rain{font-size:11px}
   .forecast-time{font-size:13px}
   /* Mantém layout da busca compacto */
-  .search-row{grid-template-columns: 1fr auto !important; gap:8px}
+  .search-row{grid-template-columns: minmax(0,1fr) auto !important; gap:8px}
   #unitToggle{justify-self:stretch}
 }
 
@@ -120,8 +130,8 @@ footer a:hover{ text-decoration-color: var(--color-primary); color: var(--text);
   .forecast-time{font-size:12px}
   .chip{font-size:12px;padding:6px 8px}
   /* Busca ainda mais compacta */
-  .search-row{grid-template-columns: 1fr auto !important; gap:6px}
-  #searchBtn{padding:9px 10px}
+  .search-row{grid-template-columns: minmax(0,1fr) auto !important; gap:6px}
+  #searchBtn{padding:9px 8px;max-width:42vw}
 }
 
 /* Safe-area (iOS notch) */
